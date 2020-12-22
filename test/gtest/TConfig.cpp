@@ -10,8 +10,7 @@ TEST(COnfigTest, Test1) {
   ASSERT_EQ("val1", res);
   res = conf.Get("key2", "");
   ASSERT_EQ("val2", res);
-  const char * str = conf["key3"];
+  const char *str = conf["key3"];
   ASSERT_FALSE(str);
   ASSERT_TRUE(0 == strcmp(conf["key2"], "val2"));
 }
-

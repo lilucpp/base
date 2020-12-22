@@ -1,20 +1,18 @@
-﻿#include "../libbase/ThreadPool.h"
-#include "../libbase/CountDownLatch.h"
-#include "../libbase/CurrentThread.h"
+﻿#include "../src/ThreadPool.h"
+#include "../src/CountDownLatch.h"
+#include "../src/CurrentThread.h"
 
 #include <stdio.h>
-#include <iostream>
 #include <chrono>
+#include <iostream>
 #include <thread>
 
 //#include <unistd.h>  // usleep
 
 void print() { printf("tid=%d\n", muduo::CurrentThread::tid()); }
-void usleep(int usec) {
-  std::this_thread::sleep_for(std::chrono::microseconds(usec));
-}
+void usleep(int usec) { std::this_thread::sleep_for(std::chrono::microseconds(usec)); }
 
-void printString(const std::string& str) {
+void printString(const std::string &str) {
   std::cout << str << std::endl;
   usleep(100 * 1000);
 }

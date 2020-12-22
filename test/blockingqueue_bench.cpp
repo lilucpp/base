@@ -3,13 +3,12 @@
 #include "../libbase/Thread.h"
 #include "../libbase/Timestamp.h"
 
-
 #include <stdio.h>
 //#include <unistd.h>
+#include <Windows.h>
 #include <map>
 #include <string>
 #include <vector>
-#include <Windows.h>
 
 class Bench {
  public:
@@ -18,10 +17,9 @@ class Bench {
     for (int i = 0; i < numThreads; ++i) {
       char name[32];
       snprintf(name, sizeof name, "work thread %d", i);
-      threads_.emplace_back(new muduo::Thread(
-          std::bind(&Bench::threadFunc, this), muduo::string(name)));
+      threads_.emplace_back(new muduo::Thread(std::bind(&Bench::threadFunc, this), muduo::string(name)));
     }
-    for (auto& thr : threads_) {
+    for (auto &thr : threads_) {
       thr->start();
     }
   }
@@ -34,8 +32,8 @@ class Bench {
       muduo::Timestamp now(muduo::Timestamp::now());
       queue_.put(now);
       Sleep(1);
-      //std::this_thread::sleep_for(std::chrono::microseconds(10));
-      //usleep(1000);
+      // std::this_thread::sleep_for(std::chrono::microseconds(10));
+      // usleep(1000);
     }
   }
 
@@ -44,15 +42,14 @@ class Bench {
       queue_.put(muduo::Timestamp::invalid());
     }
 
-    for (auto& thr : threads_) {
+    for (auto &thr : threads_) {
       thr->join();
     }
   }
 
  private:
   void threadFunc() {
-    printf("tid=%d, %s started\n", muduo::CurrentThread::tid(),
-           muduo::CurrentThread::name());
+    printf("tid=%d, %s started\n", muduo::CurrentThread::tid(), muduo::CurrentThread::name());
 
     std::map<int, int> delays;
     latch_.countDown();
@@ -69,11 +66,9 @@ class Bench {
       running = t.valid();
     }
 
-    printf("tid=%d, %s stopped\n", muduo::CurrentThread::tid(),
-           muduo::CurrentThread::name());
-    for (const auto& delay : delays) {
-      printf("tid = %d, delay = %d, count = %d\n", muduo::CurrentThread::tid(),
-             delay.first, delay.second);
+    printf("tid=%d, %s stopped\n", muduo::CurrentThread::tid(), muduo::CurrentThread::name());
+    for (const auto &delay : delays) {
+      printf("tid = %d, delay = %d, count = %d\n", muduo::CurrentThread::tid(), delay.first, delay.second);
     }
   }
 
@@ -82,7 +77,7 @@ class Bench {
   std::vector<std::unique_ptr<muduo::Thread>> threads_;
 };
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   int threads = argc > 1 ? atoi(argv[1]) : 1;
 
   Bench t(threads);

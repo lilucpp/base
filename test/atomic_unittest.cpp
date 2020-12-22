@@ -34,6 +34,5 @@ int main() {
     assert(a1.get() == 100);
   }
 
-  
   return 0;
 }

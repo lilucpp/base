@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include "../libbase/Colors.hpp"
+#include "gtest/gtest.h"
 
 using namespace muduo;
 
@@ -16,4 +16,3 @@ TEST(ColorPrint, Test1) {
   ColorPrintln(PURPLE, "hello %s", "world");
   ColorPrintln(PURPLE, "hello %s", "world", " and colors");
 }
-

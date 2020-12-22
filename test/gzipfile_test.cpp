@@ -1,12 +1,11 @@
 ﻿#include "../libbase/GzipFile.h"
-#include <iostream>
 #include <zlib.h>
+#include <iostream>
 
 int main() {
-  const char* filename = "gzipfile_test.gz";
+  const char *filename = "gzipfile_test.gz";
   _unlink(filename);
-  const char data[] =
-      "123456789012345678901234567890123456789012345678901234567890\n";
+  const char data[] = "123456789012345678901234567890123456789012345678901234567890\n";
   {
     muduo::GzipFile writer = muduo::GzipFile::openForAppend(filename);
     if (writer.valid()) {
