@@ -334,7 +334,9 @@ inline void GetTime(const std::string &format, std::string &timeStr) {
   time_t timeNow;
   time(&timeNow);
   timeStr.resize(64);
-  size_t len = strftime((char *)timeStr.c_str(), timeStr.size(), format.c_str(), localtime(&timeNow));
+  tm tm_now;
+  localtime_s(&tm_now, &timeNow);
+  size_t len = strftime((char *)timeStr.c_str(), timeStr.size(), format.c_str(), &tm_now);
   timeStr.resize(len);
 }
 

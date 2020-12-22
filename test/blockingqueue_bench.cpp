@@ -1,7 +1,7 @@
-﻿#include "../libbase/BlockingQueue.h"
-#include "../libbase/CountDownLatch.h"
-#include "../libbase/Thread.h"
-#include "../libbase/Timestamp.h"
+﻿#include "../src/BlockingQueue.h"
+#include "../src/CountDownLatch.h"
+#include "../src/Thread.h"
+#include "../src/Timestamp.h"
 
 #include <stdio.h>
 //#include <unistd.h>

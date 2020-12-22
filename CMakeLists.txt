@@ -16,15 +16,32 @@ if(MSVC)
         $<$<CONFIG:Debug>:/MTd> #---|-- Statically link the runtime libraries
         $<$<CONFIG:Release>:/MT> #--|
 	)
+    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 endif()
 
-find_package(Boost )
+find_package(Boost)
+find_package(GTest REQUIRED)
+find_package(ZLIB REQUIRED)
+
+if(ZLIB_FOUND)
+    message("zlib dir: " ${ZLIB_INCLUDE_DIRS})
+    message("zlib libraries: " ${ZLIB_LIBRARIES})
+else()
+    message(GTEST_LIBRARIES "Cannot found zlib")
+endif()
+
+if(GTEST_FOUND)
+    message("gtest dir: " ${GTEST_INCLUDE_DIRS})
+    message("gtest libraries: " ${GTEST_LIBRARIES})
+else()
+    message(GTEST_LIBRARIES "Cannot found gtest")
+endif()
 
 # check if boost was found
 if(Boost_FOUND)
-    message ("boost found")
+    message("boost dir: " ${GTEST_LIBRARIES})
     include_directories(${Boost_INCLUDE_DIRS})
-
 else()
     message (FATAL_ERROR "Cannot find Boost")
 endif()

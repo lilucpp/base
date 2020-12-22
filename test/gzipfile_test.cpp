@@ -1,4 +1,4 @@
-﻿#include "../libbase/GzipFile.h"
+﻿#include "../src/GzipFile.h"
 #include <zlib.h>
 #include <iostream>
 
