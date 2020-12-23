@@ -336,7 +336,11 @@ inline void GetTime(const std::string &format, std::string &timeStr) {
   time(&timeNow);
   timeStr.resize(64);
   tm tm_now;
+#if defined _WIN32
   localtime_s(&tm_now, &timeNow);
+#else
+  localtime_r(&timeNow, &tm_now);
+#endif
   size_t len = strftime((char *)timeStr.c_str(), timeStr.size(), format.c_str(), &tm_now);
   timeStr.resize(len);
 }

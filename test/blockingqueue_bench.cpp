@@ -4,8 +4,12 @@
 #include "../src/Timestamp.h"
 
 #include <stdio.h>
-//#include <unistd.h>
+#if defined _WIN32
 #include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 #include <map>
 #include <string>
 #include <vector>
@@ -31,9 +35,12 @@ class Bench {
     for (int i = 0; i < times; ++i) {
       peanut::Timestamp now(peanut::Timestamp::now());
       queue_.put(now);
+#if defined _WIN32
       Sleep(1);
+#else
       // std::this_thread::sleep_for(std::chrono::microseconds(10));
-      // usleep(1000);
+      usleep(1000);
+#endif
     }
   }
 

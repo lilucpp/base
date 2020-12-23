@@ -11,7 +11,17 @@
 #include <errno.h>
 #include <stdio.h>
 #include <sys/types.h>
+
+#if defined _WIN32
 #include <windows.h>
+#else
+#include <linux/unistd.h>
+#include <sys/prctl.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <type_traits>
+#endif
 
 #include <sstream>
 #include <type_traits>
@@ -19,6 +29,7 @@
 namespace peanut {
 namespace detail {
 
+#if defined _WIN32
 // https://github.com/facebook/folly/blob/master/folly/system/ThreadName.cpp
 static constexpr size_t kMaxThreadNameLength = 16;
 bool setThreadName(std::thread::id tid, const string &name) {
@@ -61,8 +72,11 @@ bool setThreadName(std::thread::id tid, const string &name) {
   }();
 }
 
-#if defined(_WIN32)
 pid_t gettid() { return GetCurrentThreadId(); }
+
+#else
+pid_t gettid() { return static_cast<pid_t>(::syscall(SYS_gettid)); }
+
 #endif  // _WIN32
 
 class ThreadNameInitializer {
@@ -92,7 +106,11 @@ struct ThreadData {
     latch_ = NULL;
 
     peanut::CurrentThread::t_threadName = name_.empty() ? "peanutThread" : name_.c_str();
+#if defined _WIN32
     setThreadName(std::this_thread::get_id(), peanut::CurrentThread::t_threadName);
+#else
+    ::prctl(PR_SET_NAME, peanut::CurrentThread::t_threadName);
+#endif
     try {
       func_();
       peanut::CurrentThread::t_threadName = "finished";

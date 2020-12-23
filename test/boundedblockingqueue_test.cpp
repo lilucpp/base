@@ -6,9 +6,12 @@
 #include <vector>
 
 #include <stdio.h>
-//#include <unistd.h>
+#if defined _WIN32
 #include <Windows.h>
 #include <process.h>
+#else
+#include <unistd.h>
+#endif
 
 class Test {
  public:
@@ -81,7 +84,11 @@ void testMove() {
 }
 
 int main() {
+#if defined _WIN32
   printf("pid=%d, tid=%d\n", _getpid(), peanut::CurrentThread::tid());
+#else
+  printf("pid=%d, tid=%d\n", ::getpid(), peanut::CurrentThread::tid());
+#endif
   testMove();
   Test t(5);
   t.run(100);

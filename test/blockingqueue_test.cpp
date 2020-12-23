@@ -3,8 +3,11 @@
 #include "../src/Thread.h"
 
 #include <stdio.h>
-//#include <unistd.h>
+#if defined _WIN32
 #include <process.h>
+#else
+#include <unistd.h>
+#endif
 #include <memory>
 #include <string>
 #include <vector>
@@ -76,7 +79,11 @@ void testMove() {
 }
 
 int main() {
+#if defined _WIN32
   printf("pid=%d, tid=%d\n", _getpid(), peanut::CurrentThread::tid());
+#else
+  printf("pid=%d, tid=%d\n", ::getpid(), peanut::CurrentThread::tid());
+#endif
   Test t(5);
   t.run(100);
   t.joinAll();

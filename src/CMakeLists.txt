@@ -10,13 +10,16 @@ ThreadPool.cpp
 )
     
 add_library(PeanutBase STATIC ${base_SRCS})
-
+if(UNIX)
+	target_link_libraries(PeanutBase pthread)
+endif()
 ############################################################
 # Install
 ############################################################
 
 # Library
 install (TARGETS PeanutBase
+    ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib)
 
 # Header files

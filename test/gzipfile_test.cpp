@@ -4,7 +4,11 @@
 
 int main() {
   const char *filename = "gzipfile_test.gz";
+#if defined _WIN32
   _unlink(filename);
+#else
+  ::unlink(filename);
+#endif
   const char data[] = "123456789012345678901234567890123456789012345678901234567890\n";
   {
     peanut::GzipFile writer = peanut::GzipFile::openForAppend(filename);
