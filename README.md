@@ -10,6 +10,8 @@
 
 1. windows
 
+   安装包管理工具vcpkg，使用vcpkg安装依赖库：boost、zlib、gtest。
+   
    ```bat
    python .\build_support\run_clang_format.py .\test
    python .\build_support\run_clang_format.py .\src
@@ -17,8 +19,53 @@
    cd build
    cmake .. -G "Visual Studio 14 2015"  -DCMAKE_TOOLCHAIN_FILE=P:/vcpkg/scripts/buildsystems/vcpkg.cmake
    cmake --build . --config Release
+	cmake --install .
+	```
+   
+   最终目录如下：
+   ```bat
+   ~base/build/PeanutBase$ tree
+   .
+   ├── bin
+   │   ├── blockingqueue_bench.exe
+   │   ├── blockingqueue_test.exe
+   │   ├── boundedblockingqueue_test.exe
+   │   ├── gtest_main.exe
+   │   ├── gzipfile_test.exe
+   │   ├── singleton_test.exe
+   │   ├── testdata
+   │   │   ├── 1.conf
+   │   │   ├── dict.gbk
+   │   │   └── dict.utf8
+   │   └── threadpool_test.exe
+   ├── include
+   │   ├── Atomic.h
+   │   ├── BlockingQueue.h
+   │   ├── BoundedBlockingQueue.h
+   │   ├── Colors.h
+   │   ├── Condition.h
+   │   ├── Config.h
+   │   ├── Copyable.h
+   │   ├── CountDownLatch.h
+   │   ├── CurrentThread.h
+   │   ├── Date.h
+   │   ├── Exception.h
+   │   ├── GzipFile.h
+   │   ├── Mutex.h
+   │   ├── Noncopyable.h
+   │   ├── Singleton.h
+   │   ├── StdExtension.h
+   │   ├── StringPiece.h
+   │   ├── StringUtil.h
+   │   ├── Thread.h
+   │   ├── ThreadPool.h
+   │   ├── Timestamp.h
+   │   ├── Types.h
+   │   └── portable_endian.h
+   └── lib
+       └── PeanutBase.lib
    ```
-
+   
    
 
 主要功能
@@ -29,14 +76,14 @@
 4. Colors
 5. Condition
 6. Config
-7. copyable
+7. Copyable
 8. CountDownLatch
 9. CurrentThread
 10. Date
 11. Exception
 12. GzipFile
 13. Mutex
-14. noncopyabe
+14. Noncopyabe
 15. Singleton
 16. StdExtension
 17. StringPiece
@@ -45,3 +92,9 @@
 20. ThreadPool
 21. Timestamp
 22. Types
+
+## todo
+
+1. 减少boost依赖
+2. 跨平台
+3. 增加其他常用功能
