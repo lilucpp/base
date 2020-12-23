@@ -10,17 +10,24 @@
 
 1. windows
 
-   安装包管理工具vcpkg，使用vcpkg安装依赖库：boost、zlib、gtest。
+   安装包管理工具vcpkg，使用vcpkg安装依赖库：
    
-   ```bat
-   python .\build_support\run_clang_format.py .\test
+   - boost
+     - boost-utility
+     - boost-circular-buffer
+     - boost-stacktrace
+   - zlib
+   - gtest。
+   
+	```bat
+	python .\build_support\run_clang_format.py .\test
    python .\build_support\run_clang_format.py .\src
    mkdir build
    cd build
    cmake .. -G "Visual Studio 14 2015"  -DCMAKE_TOOLCHAIN_FILE=P:/vcpkg/scripts/buildsystems/vcpkg.cmake
    cmake --build . --config Release
-	cmake --install .
-	```
+   cmake --install .
+   ```
    
    最终目录如下：
    ```bat

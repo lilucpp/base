@@ -67,7 +67,7 @@ class Test {
 };
 
 void testMove() {
-#if BOOST_VERSION >= 105500L
+  //#if BOOST_VERSION >= 105500L
   /*peanut::BoundedBlockingQueue<std::unique_ptr<int>> queue(10);
   queue.put(std::unique_ptr<int>(new int(42)));
   std::unique_ptr<int> x = queue.take();
@@ -77,7 +77,7 @@ void testMove() {
   std::unique_ptr<int> y;
   y = queue.take();
   printf("took %d\n", *y);*/
-#endif
+  //#endif
 }
 
 int main() {
