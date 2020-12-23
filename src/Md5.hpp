@@ -29,7 +29,7 @@
 #include <cstring>
 #include <iostream>
 
-namespace muduo {
+namespace peanut {
 
 //#pragma region MD5 defines
 // Constants for MD5Transform routine.
@@ -392,5 +392,5 @@ inline bool md5File(const char *filepath, std::string &res) {
   res = pRes;
   return true;
 }
-}  // namespace muduo
+}  // namespace peanut
 #endif

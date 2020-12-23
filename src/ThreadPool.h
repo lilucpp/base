@@ -1,10 +1,10 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_THREADPOOL_H
-#define MUDUO_BASE_THREADPOOL_H
+#ifndef PEANUT_BASE_THREADPOOL_H
+#define PEANUT_BASE_THREADPOOL_H
 
 #include "Condition.h"
 #include "Mutex.h"
@@ -14,7 +14,7 @@
 #include <deque>
 #include <vector>
 
-namespace muduo {
+namespace peanut {
 
 class ThreadPool : noncopyable {
  public:
@@ -52,12 +52,12 @@ class ThreadPool : noncopyable {
   Condition notFull_;
   string name_;
   Task threadInitCallback_;
-  std::vector<std::unique_ptr<muduo::Thread>> threads_;
+  std::vector<std::unique_ptr<peanut::Thread>> threads_;
   std::deque<Task> queue_;
   size_t maxQueueSize_;
   bool running_;
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_THREADPOOL_H
+#endif  // PEANUT_BASE_THREADPOOL_H

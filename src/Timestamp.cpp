@@ -1,11 +1,10 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #include "Timestamp.h"
 
-//#include <sys/time.h>
 #include <stdio.h>
 #include <time.h>
 
@@ -17,7 +16,7 @@
 
 #include <inttypes.h>
 
-using namespace muduo;
+using namespace peanut;
 
 string Timestamp::toString() const {
   char buf[32] = {0};

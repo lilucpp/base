@@ -1,16 +1,16 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_ATOMIC_H
-#define MUDUO_BASE_ATOMIC_H
+#ifndef PEANUT_BASE_ATOMIC_H
+#define PEANUT_BASE_ATOMIC_H
 
 #include <stdint.h>
 #include <atomic>
-#include "noncopyable.h"
+#include "Noncopyable.h"
 
-namespace muduo {
+namespace peanut {
 
 namespace detail {
 template <typename T>
@@ -56,6 +56,6 @@ class AtomicIntegerT : noncopyable {
 typedef detail::AtomicIntegerT<int32_t> AtomicInt32;
 typedef detail::AtomicIntegerT<int64_t> AtomicInt64;
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_ATOMIC_H
+#endif  // PEANUT_BASE_ATOMIC_H

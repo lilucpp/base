@@ -1,9 +1,9 @@
+#include "../src/StringUtil.h"
 #include <string>
 #include <vector>
-#include "../src/StringUtil.hpp"
 #include "gtest/gtest.h"
 
-using namespace muduo;
+using namespace peanut;
 using namespace std;
 TEST(StringUtilTest, Test1) {
   vector<string> vec;

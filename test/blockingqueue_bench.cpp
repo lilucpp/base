@@ -17,7 +17,7 @@ class Bench {
     for (int i = 0; i < numThreads; ++i) {
       char name[32];
       snprintf(name, sizeof name, "work thread %d", i);
-      threads_.emplace_back(new muduo::Thread(std::bind(&Bench::threadFunc, this), muduo::string(name)));
+      threads_.emplace_back(new peanut::Thread(std::bind(&Bench::threadFunc, this), peanut::string(name)));
     }
     for (auto &thr : threads_) {
       thr->start();
@@ -29,7 +29,7 @@ class Bench {
     latch_.wait();
     printf("all threads started\n");
     for (int i = 0; i < times; ++i) {
-      muduo::Timestamp now(muduo::Timestamp::now());
+      peanut::Timestamp now(peanut::Timestamp::now());
       queue_.put(now);
       Sleep(1);
       // std::this_thread::sleep_for(std::chrono::microseconds(10));
@@ -39,7 +39,7 @@ class Bench {
 
   void joinAll() {
     for (size_t i = 0; i < threads_.size(); ++i) {
-      queue_.put(muduo::Timestamp::invalid());
+      queue_.put(peanut::Timestamp::invalid());
     }
 
     for (auto &thr : threads_) {
@@ -49,32 +49,32 @@ class Bench {
 
  private:
   void threadFunc() {
-    printf("tid=%d, %s started\n", muduo::CurrentThread::tid(), muduo::CurrentThread::name());
+    printf("tid=%d, %s started\n", peanut::CurrentThread::tid(), peanut::CurrentThread::name());
 
     std::map<int, int> delays;
     latch_.countDown();
     bool running = true;
     while (running) {
-      muduo::Timestamp t(queue_.take());
-      muduo::Timestamp now(muduo::Timestamp::now());
+      peanut::Timestamp t(queue_.take());
+      peanut::Timestamp now(peanut::Timestamp::now());
       if (t.valid()) {
         int delay = static_cast<int>(timeDifference(now, t) * 1000000);
         // printf("tid=%d, latency = %d us\n",
-        //        muduo::CurrentThread::tid(), delay);
+        //        peanut::CurrentThread::tid(), delay);
         ++delays[delay];
       }
       running = t.valid();
     }
 
-    printf("tid=%d, %s stopped\n", muduo::CurrentThread::tid(), muduo::CurrentThread::name());
+    printf("tid=%d, %s stopped\n", peanut::CurrentThread::tid(), peanut::CurrentThread::name());
     for (const auto &delay : delays) {
-      printf("tid = %d, delay = %d, count = %d\n", muduo::CurrentThread::tid(), delay.first, delay.second);
+      printf("tid = %d, delay = %d, count = %d\n", peanut::CurrentThread::tid(), delay.first, delay.second);
     }
   }
 
-  muduo::BlockingQueue<muduo::Timestamp> queue_;
-  muduo::CountDownLatch latch_;
-  std::vector<std::unique_ptr<muduo::Thread>> threads_;
+  peanut::BlockingQueue<peanut::Timestamp> queue_;
+  peanut::CountDownLatch latch_;
+  std::vector<std::unique_ptr<peanut::Thread>> threads_;
 };
 
 int main(int argc, char *argv[]) {

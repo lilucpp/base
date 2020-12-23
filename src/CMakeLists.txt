@@ -1,12 +1,12 @@
 set(base_SRCS
-Condition.cc
-CountDownLatch.cc
-CurrentThread.cc
-Date.cc
-Exception.cc
-Timestamp.cc
-Thread.cc
-ThreadPool.cc
+Condition.cpp
+CountDownLatch.cpp
+CurrentThread.cpp
+Date.cpp
+Exception.cpp
+Timestamp.cpp
+Thread.cpp
+ThreadPool.cpp
 )
     
 add_library(PeanutBase STATIC ${base_SRCS})

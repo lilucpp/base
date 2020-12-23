@@ -1,7 +1,7 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #include "Condition.h"
 
@@ -9,7 +9,7 @@
 
 #include <chrono>
 
-namespace muduo {
+namespace peanut {
 
 // returns true if time out, false otherwise.
 bool Condition::waitForSeconds(double seconds) {
@@ -22,4 +22,4 @@ bool Condition::waitForSeconds(double seconds) {
   return std::cv_status::timeout == pcond_.wait_until(mutex_, abstime);
 }
 
-}  // namespace muduo
+}  // namespace peanut

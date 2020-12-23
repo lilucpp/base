@@ -1,10 +1,10 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_BOUNDEDBLOCKINGQUEUE_H
-#define MUDUO_BASE_BOUNDEDBLOCKINGQUEUE_H
+#ifndef PEANUT_BASE_BOUNDEDBLOCKINGQUEUE_H
+#define PEANUT_BASE_BOUNDEDBLOCKINGQUEUE_H
 
 #include "Condition.h"
 #include "Mutex.h"
@@ -12,7 +12,7 @@
 #include <assert.h>
 #include <boost/circular_buffer.hpp>
 
-namespace muduo {
+namespace peanut {
 
 template <typename T>
 class BoundedBlockingQueue : noncopyable {
@@ -68,6 +68,6 @@ class BoundedBlockingQueue : noncopyable {
   boost::circular_buffer<T> queue_;
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_BOUNDEDBLOCKINGQUEUE_H
+#endif  // PEANUT_BASE_BOUNDEDBLOCKINGQUEUE_H

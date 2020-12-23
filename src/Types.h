@@ -1,5 +1,10 @@
-#ifndef MUDUO_BASE_TYPES_H
-#define MUDUO_BASE_TYPES_H
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
+
+#ifndef PEANUT_BASE_TYPES_H
+#define PEANUT_BASE_TYPES_H
 
 #include <stdint.h>
 #include <string.h>  // memset
@@ -19,7 +24,7 @@
 
 #endif  // _WIN32
 
-namespace muduo {
+namespace peanut {
 
 using std::string;
 
@@ -119,6 +124,6 @@ inline To down_cast(From *f)           // so we only accept pointers
   return static_cast<To>(f);
 }
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_TYPES_H
+#endif  // PEANUT_BASE_TYPES_H

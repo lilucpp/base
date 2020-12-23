@@ -17,7 +17,7 @@ class Test {
     for (int i = 0; i < numThreads; ++i) {
       char name[32];
       snprintf(name, sizeof name, "work thread %d", i);
-      threads_.emplace_back(new muduo::Thread(std::bind(&Test::threadFunc, this), muduo::string(name)));
+      threads_.emplace_back(new peanut::Thread(std::bind(&Test::threadFunc, this), peanut::string(name)));
     }
     for (auto &thr : threads_) {
       thr->start();
@@ -32,7 +32,7 @@ class Test {
       char buf[32];
       snprintf(buf, sizeof buf, "hello %d", i);
       queue_.put(buf);
-      printf("tid=%d, put data = %s, size = %zd\n", muduo::CurrentThread::tid(), buf, queue_.size());
+      printf("tid=%d, put data = %s, size = %zd\n", peanut::CurrentThread::tid(), buf, queue_.size());
     }
   }
 
@@ -48,27 +48,27 @@ class Test {
 
  private:
   void threadFunc() {
-    printf("tid=%d, %s started\n", muduo::CurrentThread::tid(), muduo::CurrentThread::name());
+    printf("tid=%d, %s started\n", peanut::CurrentThread::tid(), peanut::CurrentThread::name());
 
     latch_.countDown();
     bool running = true;
     while (running) {
       std::string d(queue_.take());
-      printf("tid=%d, get data = %s, size = %zd\n", muduo::CurrentThread::tid(), d.c_str(), queue_.size());
+      printf("tid=%d, get data = %s, size = %zd\n", peanut::CurrentThread::tid(), d.c_str(), queue_.size());
       running = (d != "stop");
     }
 
-    printf("tid=%d, %s stopped\n", muduo::CurrentThread::tid(), muduo::CurrentThread::name());
+    printf("tid=%d, %s stopped\n", peanut::CurrentThread::tid(), peanut::CurrentThread::name());
   }
 
-  muduo::BoundedBlockingQueue<std::string> queue_;
-  muduo::CountDownLatch latch_;
-  std::vector<std::unique_ptr<muduo::Thread>> threads_;
+  peanut::BoundedBlockingQueue<std::string> queue_;
+  peanut::CountDownLatch latch_;
+  std::vector<std::unique_ptr<peanut::Thread>> threads_;
 };
 
 void testMove() {
 #if BOOST_VERSION >= 105500L
-  /*muduo::BoundedBlockingQueue<std::unique_ptr<int>> queue(10);
+  /*peanut::BoundedBlockingQueue<std::unique_ptr<int>> queue(10);
   queue.put(std::unique_ptr<int>(new int(42)));
   std::unique_ptr<int> x = queue.take();
   printf("took %d\n", *x);
@@ -81,11 +81,11 @@ void testMove() {
 }
 
 int main() {
-  printf("pid=%d, tid=%d\n", _getpid(), muduo::CurrentThread::tid());
+  printf("pid=%d, tid=%d\n", _getpid(), peanut::CurrentThread::tid());
   testMove();
   Test t(5);
   t.run(100);
   t.joinAll();
 
-  printf("number of created threads %d\n", muduo::Thread::numCreated());
+  printf("number of created threads %d\n", peanut::Thread::numCreated());
 }

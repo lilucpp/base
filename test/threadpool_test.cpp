@@ -9,7 +9,7 @@
 
 //#include <unistd.h>  // usleep
 
-void print() { printf("tid=%d\n", muduo::CurrentThread::tid()); }
+void print() { printf("tid=%d\n", peanut::CurrentThread::tid()); }
 void usleep(int usec) { std::this_thread::sleep_for(std::chrono::microseconds(usec)); }
 
 void printString(const std::string &str) {
@@ -19,7 +19,7 @@ void printString(const std::string &str) {
 
 void test(int maxSize) {
   std::cout << "Test ThreadPool with max queue size = " << maxSize << std::endl;
-  muduo::ThreadPool pool("MainThreadPool");
+  peanut::ThreadPool pool("MainThreadPool");
   pool.setMaxQueueSize(maxSize);
   pool.start(5);
 
@@ -33,8 +33,8 @@ void test(int maxSize) {
   }
   std::cout << "Done" << std::endl;
   std::cout << "---queueSize=" << pool.queueSize() << std::endl;
-  muduo::CountDownLatch latch(1);
-  pool.run(std::bind(&muduo::CountDownLatch::countDown, &latch));
+  peanut::CountDownLatch latch(1);
+  pool.run(std::bind(&peanut::CountDownLatch::countDown, &latch));
   latch.wait();
   std::cout << "---queueSize=" << pool.queueSize() << std::endl;
   pool.stop();
@@ -44,27 +44,27 @@ void test(int maxSize) {
  * Wish we could do this in the future.
 void testMove()
 {
-  muduo::ThreadPool pool;
+  peanut::ThreadPool pool;
   pool.start(2);
 
   std::unique_ptr<int> x(new int(42));
-  pool.run([y = std::move(x)]{ printf("%d: %d\n", muduo::CurrentThread::tid(),
+  pool.run([y = std::move(x)]{ printf("%d: %d\n", peanut::CurrentThread::tid(),
 *y); }); pool.stop();
 }
 */
 
 void longTask(int num) {
   std::cout << "longTask " << num << std::endl;
-  muduo::CurrentThread::sleepUsec(3000000);
+  peanut::CurrentThread::sleepUsec(3000000);
 }
 
 void test2() {
   std::cout << "Test ThreadPool by stoping early." << std::endl;
-  muduo::ThreadPool pool("ThreadPool");
+  peanut::ThreadPool pool("ThreadPool");
   pool.setMaxQueueSize(5);
   pool.start(3);
 
-  muduo::Thread thread1(
+  peanut::Thread thread1(
       [&pool]() {
         for (int i = 0; i < 20; ++i) {
           pool.run(std::bind(longTask, i));
@@ -73,7 +73,7 @@ void test2() {
       "thread1");
   thread1.start();
 
-  muduo::CurrentThread::sleepUsec(7000000);
+  peanut::CurrentThread::sleepUsec(7000000);
   std::cout << "stop pool" << std::endl;
   pool.stop();  // early stop
 

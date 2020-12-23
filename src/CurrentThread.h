@@ -1,10 +1,10 @@
 ﻿// Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_CURRENTTHREAD_H
-#define MUDUO_BASE_CURRENTTHREAD_H
+#ifndef PEANUT_BASE_CURRENTTHREAD_H
+#define PEANUT_BASE_CURRENTTHREAD_H
 
 #include <atomic>
 #include <thread>
@@ -15,7 +15,7 @@
 typedef unsigned long pid_t;
 #endif  // _WIN32
 
-namespace muduo {
+namespace peanut {
 namespace CurrentThread {
 // internal
 extern __thread pid_t t_cachedTid;
@@ -51,6 +51,6 @@ inline void sleepUsec(int64_t usec)  // for testing
 
 string stackTrace(bool demangle);
 }  // namespace CurrentThread
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_CURRENTTHREAD_H
+#endif  // PEANUT_BASE_CURRENTTHREAD_H

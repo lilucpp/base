@@ -1,7 +1,12 @@
-#ifndef MUDUO_BASE_COPYABLE_H
-#define MUDUO_BASE_COPYABLE_H
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
 
-namespace muduo {
+#ifndef PEANUT_BASE_COPYABLE_H
+#define PEANUT_BASE_COPYABLE_H
+
+namespace peanut {
 
 /// A tag class emphasises the objects are copyable.
 /// The empty base class optimization applies.
@@ -12,6 +17,6 @@ class copyable {
   ~copyable() = default;
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_COPYABLE_H
+#endif  // PEANUT_BASE_COPYABLE_H

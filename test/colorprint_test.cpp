@@ -1,7 +1,7 @@
-#include "../src/Colors.hpp"
+#include "../src/Colors.h"
 #include "gtest/gtest.h"
 
-using namespace muduo;
+using namespace peanut;
 
 TEST(ColorPrint, Test1) {
   ColorPrintln(RED, "hello %s", "world");

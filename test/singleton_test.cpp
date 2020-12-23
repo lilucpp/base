@@ -4,42 +4,42 @@
 
 #include <stdio.h>
 
-class Test : muduo::noncopyable {
+class Test : peanut::noncopyable {
  public:
-  Test() { printf("tid=%d, constructing %p\n", muduo::CurrentThread::tid(), this); }
+  Test() { printf("tid=%d, constructing %p\n", peanut::CurrentThread::tid(), this); }
 
-  ~Test() { printf("tid=%d, destructing %p %s\n", muduo::CurrentThread::tid(), this, name_.c_str()); }
+  ~Test() { printf("tid=%d, destructing %p %s\n", peanut::CurrentThread::tid(), this, name_.c_str()); }
 
-  const muduo::string &name() const { return name_; }
-  void setName(const muduo::string &n) { name_ = n; }
+  const peanut::string &name() const { return name_; }
+  void setName(const peanut::string &n) { name_ = n; }
 
  private:
-  muduo::string name_;
+  peanut::string name_;
 };
 
-class TestNoDestroy : muduo::noncopyable {
+class TestNoDestroy : peanut::noncopyable {
  public:
   // Tag member for Singleton<T>
   void no_destroy();
 
-  TestNoDestroy() { printf("tid=%d, constructing TestNoDestroy %p\n", muduo::CurrentThread::tid(), this); }
+  TestNoDestroy() { printf("tid=%d, constructing TestNoDestroy %p\n", peanut::CurrentThread::tid(), this); }
 
-  ~TestNoDestroy() { printf("tid=%d, destructing TestNoDestroy %p\n", muduo::CurrentThread::tid(), this); }
+  ~TestNoDestroy() { printf("tid=%d, destructing TestNoDestroy %p\n", peanut::CurrentThread::tid(), this); }
 };
 
 void threadFunc() {
-  printf("tid=%d, %p name=%s\n", muduo::CurrentThread::tid(), &muduo::Singleton<Test>::instance(),
-         muduo::Singleton<Test>::instance().name().c_str());
-  muduo::Singleton<Test>::instance().setName("only one, changed");
+  printf("tid=%d, %p name=%s\n", peanut::CurrentThread::tid(), &peanut::Singleton<Test>::instance(),
+         peanut::Singleton<Test>::instance().name().c_str());
+  peanut::Singleton<Test>::instance().setName("only one, changed");
 }
 
 int main() {
-  muduo::Singleton<Test>::instance().setName("only one");
-  muduo::Thread t1(threadFunc);
+  peanut::Singleton<Test>::instance().setName("only one");
+  peanut::Thread t1(threadFunc);
   t1.start();
   t1.join();
-  printf("tid=%d, %p name=%s\n", muduo::CurrentThread::tid(), &muduo::Singleton<Test>::instance(),
-         muduo::Singleton<Test>::instance().name().c_str());
-  muduo::Singleton<TestNoDestroy>::instance();
+  printf("tid=%d, %p name=%s\n", peanut::CurrentThread::tid(), &peanut::Singleton<Test>::instance(),
+         peanut::Singleton<Test>::instance().name().c_str());
+  peanut::Singleton<TestNoDestroy>::instance();
   printf("with valgrind, you should see %zd-byte memory leak.\n", sizeof(TestNoDestroy));
 }

@@ -1,7 +1,12 @@
-#ifndef MUDUO_BASE_NONCOPYABLE_H
-#define MUDUO_BASE_NONCOPYABLE_H
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
 
-namespace muduo {
+#ifndef PEANUT_BASE_NONCOPYABLE_H
+#define PEANUT_BASE_NONCOPYABLE_H
+
+namespace peanut {
 
 class noncopyable {
  public:
@@ -13,6 +18,6 @@ class noncopyable {
   ~noncopyable() = default;
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_NONCOPYABLE_H
+#endif  // PEANUT_BASE_NONCOPYABLE_H

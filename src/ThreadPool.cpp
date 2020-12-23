@@ -1,7 +1,7 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #include "ThreadPool.h"
 
@@ -10,7 +10,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-using namespace muduo;
+using namespace peanut;
 
 ThreadPool::ThreadPool(const string &nameArg)
     : mutex_(), notEmpty_(mutex_), notFull_(mutex_), name_(nameArg), maxQueueSize_(0), running_(false) {}
@@ -28,7 +28,7 @@ void ThreadPool::start(int numThreads) {
   for (int i = 0; i < numThreads; ++i) {
     char id[32];
     snprintf(id, sizeof id, "%d", i + 1);
-    threads_.emplace_back(new muduo::Thread(std::bind(&ThreadPool::runInThread, this), name_ + id));
+    threads_.emplace_back(new peanut::Thread(std::bind(&ThreadPool::runInThread, this), name_ + id));
     threads_[i]->start();
   }
   if (numThreads == 0 && threadInitCallback_) {

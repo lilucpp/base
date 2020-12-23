@@ -1,17 +1,17 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_TIMESTAMP_H
-#define MUDUO_BASE_TIMESTAMP_H
+#ifndef PEANUT_BASE_TIMESTAMP_H
+#define PEANUT_BASE_TIMESTAMP_H
 
 #include <boost/operators.hpp>
 
+#include "Copyable.h"
 #include "Types.h"
-#include "copyable.h"
 
-namespace muduo {
+namespace peanut {
 
 ///
 /// Time stamp in UTC, in microseconds resolution.
@@ -19,7 +19,7 @@ namespace muduo {
 /// This class is immutable.
 /// It's recommended to pass it by value, since it's passed in register on x64.
 ///
-class Timestamp : public muduo::copyable,
+class Timestamp : public peanut::copyable,
                   public boost::equality_comparable<Timestamp>,
                   public boost::less_than_comparable<Timestamp> {
  public:
@@ -95,6 +95,6 @@ inline Timestamp addTime(Timestamp timestamp, double seconds) {
   return Timestamp(timestamp.microSecondsSinceEpoch() + delta);
 }
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_TIMESTAMP_H
+#endif  // PEANUT_BASE_TIMESTAMP_H

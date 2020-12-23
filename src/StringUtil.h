@@ -1,9 +1,10 @@
-/************************************
- * file enc : ascii
- * author   : wuyanyi09@gmail.com
- ************************************/
-#ifndef MUDUO_BASE_STR_FUNCTS_H
-#define MUDUO_BASE_STR_FUNCTS_H
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
+
+#ifndef PEANUT_BASE_STRINGUTIL_H
+#define PEANUT_BASE_STRINGUTIL_H
 #include <memory.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -21,9 +22,9 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "StdExtension.hpp"
+#include "StdExtension.h"
 
-namespace muduo {
+namespace peanut {
 
 inline std::string StringFormat(const char *fmt, ...) {
   int size = 256;
@@ -347,5 +348,5 @@ inline std::string pathJoin(const std::string &path1, const std::string &path2) 
   return path1 + "/" + path2;
 }
 
-}  // namespace muduo
-#endif
+}  // namespace peanut
+#endif  // PEANUT_BASE_STRINGUTIL_H

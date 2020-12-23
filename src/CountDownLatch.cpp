@@ -1,11 +1,11 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #include "CountDownLatch.h"
 
-using namespace muduo;
+using namespace peanut;
 
 CountDownLatch::CountDownLatch(int count) : mutex_(), condition_(mutex_), count_(count) {}
 

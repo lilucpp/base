@@ -1,17 +1,17 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_DATE_H
-#define MUDUO_BASE_DATE_H
+#ifndef PEANUT_BASE_DATE_H
+#define PEANUT_BASE_DATE_H
 
+#include "Copyable.h"
 #include "Types.h"
-#include "copyable.h"
 
 struct tm;
 
-namespace muduo {
+namespace peanut {
 
 ///
 /// Date in Gregorian calendar.
@@ -19,7 +19,7 @@ namespace muduo {
 /// This class is immutable.
 /// It's recommended to pass it by value, since it's passed in register on x64.
 ///
-class Date : public muduo::copyable
+class Date : public peanut::copyable
 // public boost::less_than_comparable<Date>,
 // public boost::equality_comparable<Date>
 {
@@ -86,6 +86,6 @@ inline bool operator<(Date x, Date y) { return x.julianDayNumber() < y.julianDay
 
 inline bool operator==(Date x, Date y) { return x.julianDayNumber() == y.julianDayNumber(); }
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_DATE_H
+#endif  // PEANUT_BASE_DATE_H

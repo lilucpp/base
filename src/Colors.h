@@ -1,10 +1,15 @@
-#ifndef MUDUO_BASE_PRINT_HPP
-#define MUDUO_BASE_PRINT_HPP
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
+
+#ifndef PEANUT_BASE_PRINT_H
+#define PEANUT_BASE_PRINT_H
 
 #include <stdarg.h>
 #include <string>
 
-namespace muduo {
+namespace peanut {
 
 /*
 How to put color on Windows console(https://www.codeproject.com/Tips/5255355/How-to-Put-Color-on-Windows-Console)
@@ -31,6 +36,6 @@ static void ColorPrintln(enum Color color, const char *fmt, ...) {
   printf("\033[0m\n");  // if not \n , in some situation , the next lines will be set the same color unexpectedly
 }
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_PRINT_HPP
+#endif  // PEANUT_BASE_PRINT_H

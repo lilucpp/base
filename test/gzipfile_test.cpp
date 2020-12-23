@@ -7,7 +7,7 @@ int main() {
   _unlink(filename);
   const char data[] = "123456789012345678901234567890123456789012345678901234567890\n";
   {
-    muduo::GzipFile writer = muduo::GzipFile::openForAppend(filename);
+    peanut::GzipFile writer = peanut::GzipFile::openForAppend(filename);
     if (writer.valid()) {
       std::cout << "tell " << writer.tell() << std::endl;
       std::cout << "wrote " << writer.write(data) << std::endl;
@@ -17,7 +17,7 @@ int main() {
 
   {
     printf("testing reader\n");
-    muduo::GzipFile reader = muduo::GzipFile::openForRead(filename);
+    peanut::GzipFile reader = peanut::GzipFile::openForRead(filename);
     if (reader.valid()) {
       char buf[256];
       std::cout << "tell " << reader.tell() << std::endl;
@@ -38,7 +38,7 @@ int main() {
   }
 
   {
-    muduo::GzipFile writer = muduo::GzipFile::openForWriteExclusive(filename);
+    peanut::GzipFile writer = peanut::GzipFile::openForWriteExclusive(filename);
     if (writer.valid() || errno != EEXIST) {
       printf("FAILED\n");
     }

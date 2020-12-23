@@ -1,17 +1,18 @@
-/************************************
- * file enc : utf8
- * author   : wuyanyi09@gmail.com
- ************************************/
-#ifndef LIMONP_CONFIG_H
-#define LIMONP_CONFIG_H
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
+
+#ifndef PEANUT_BASE_CONFIG_H
+#define PEANUT_BASE_CONFIG_H
 
 #include <assert.h>
 #include <fstream>
 #include <iostream>
 #include <map>
-#include "StringUtil.hpp"
+#include "StringUtil.h"
 
-namespace muduo {
+namespace peanut {
 
 class Config {
  public:
@@ -90,6 +91,6 @@ class Config {
 
 inline std::ostream &operator<<(std::ostream &os, const Config &config) { return os << config.map_; }
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // LIMONP_CONFIG_H
+#endif  // PEANUT_BASE_CONFIG_H

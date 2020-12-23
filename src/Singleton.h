@@ -1,18 +1,18 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_SINGLETON_H
-#define MUDUO_BASE_SINGLETON_H
+#ifndef PEANUT_BASE_SINGLETON_H
+#define PEANUT_BASE_SINGLETON_H
 
-#include "noncopyable.h"
+#include "Noncopyable.h"
 
 #include <assert.h>
 #include <stdlib.h>  // atexit
 #include <mutex>
 
-namespace muduo {
+namespace peanut {
 
 namespace detail {
 // This doesn't detect inherited member functions!
@@ -67,6 +67,6 @@ std::once_flag Singleton<T>::ponce_;
 template <typename T>
 T *Singleton<T>::value_ = NULL;
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_SINGLETON_H
+#endif  // PEANUT_BASE_SINGLETON_H

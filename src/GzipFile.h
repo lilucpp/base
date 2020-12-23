@@ -1,15 +1,15 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #pragma once
 
 #include <zlib.h>
+#include "Noncopyable.h"
 #include "StringPiece.h"
-#include "noncopyable.h"
 
-namespace muduo {
+namespace peanut {
 
 class GzipFile : noncopyable {
  public:
@@ -63,4 +63,4 @@ class GzipFile : noncopyable {
   gzFile file_;
 };
 
-}  // namespace muduo
+}  // namespace peanut

@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 TEST(Atomic, TestAtomicInt64) {
-  muduo::AtomicInt64 a0;
+  peanut::AtomicInt64 a0;
   ASSERT_TRUE(a0.get() == 0);
   ASSERT_TRUE(a0.getAndAdd(1) == 0);
   ASSERT_TRUE(a0.get() == 1);
@@ -18,7 +18,7 @@ TEST(Atomic, TestAtomicInt64) {
 }
 
 TEST(Atomic, TestAtomicInt32) {
-  muduo::AtomicInt32 a1;
+  peanut::AtomicInt32 a1;
   ASSERT_TRUE(a1.get() == 0);
   ASSERT_TRUE(a1.getAndAdd(1) == 0);
   ASSERT_TRUE(a1.get() == 1);

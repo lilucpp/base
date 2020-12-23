@@ -1,12 +1,12 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #include "Date.h"
 #include <stdio.h>  // snprintf
 
-namespace muduo {
+namespace peanut {
 namespace detail {
 
 char require_32_bit_integer_at_least[sizeof(int) >= sizeof(int32_t) ? 1 : -1];
@@ -38,10 +38,10 @@ struct Date::YearMonthDay getYearMonthDay(int julianDayNumber) {
 }
 }  // namespace detail
 const int Date::kJulianDayOf1970_01_01 = detail::getJulianDayNumber(1970, 1, 1);
-}  // namespace muduo
+}  // namespace peanut
 
-using namespace muduo;
-using namespace muduo::detail;
+using namespace peanut;
+using namespace peanut::detail;
 
 Date::Date(int y, int m, int d) : julianDayNumber_(getJulianDayNumber(y, m, d)) {}
 

@@ -1,7 +1,7 @@
-#include "../src/Config.hpp"
+#include "../src/Config.h"
 #include "gtest/gtest.h"
 
-using namespace muduo;
+using namespace peanut;
 TEST(ConfigTest, Test1) {
   Config conf("./testdata/1.conf");
   std::string res;

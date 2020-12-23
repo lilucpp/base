@@ -1,13 +1,12 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
 #include "Thread.h"
 #include "CurrentThread.h"
 #include "Exception.h"
 #include "Timestamp.h"
-//#include "Logging.h"
 
 #include <errno.h>
 #include <stdio.h>
@@ -17,7 +16,7 @@
 #include <sstream>
 #include <type_traits>
 
-namespace muduo {
+namespace peanut {
 namespace detail {
 
 // https://github.com/facebook/folly/blob/master/folly/system/ThreadName.cpp
@@ -69,7 +68,7 @@ pid_t gettid() { return GetCurrentThreadId(); }
 class ThreadNameInitializer {
  public:
   ThreadNameInitializer() {
-    muduo::CurrentThread::t_threadName = "main";
+    peanut::CurrentThread::t_threadName = "main";
     CurrentThread::tid();
   }
 };
@@ -77,7 +76,7 @@ class ThreadNameInitializer {
 ThreadNameInitializer init;
 
 struct ThreadData {
-  typedef muduo::Thread::ThreadFunc ThreadFunc;
+  typedef peanut::Thread::ThreadFunc ThreadFunc;
   ThreadFunc func_;
   string name_;
   pid_t *tid_;
@@ -87,29 +86,29 @@ struct ThreadData {
       : func_(std::move(func)), name_(name), tid_(tid), latch_(latch) {}
 
   void runInThread() {
-    *tid_ = muduo::CurrentThread::tid();
+    *tid_ = peanut::CurrentThread::tid();
     tid_ = NULL;
     latch_->countDown();
     latch_ = NULL;
 
-    muduo::CurrentThread::t_threadName = name_.empty() ? "muduoThread" : name_.c_str();
-    setThreadName(std::this_thread::get_id(), muduo::CurrentThread::t_threadName);
+    peanut::CurrentThread::t_threadName = name_.empty() ? "peanutThread" : name_.c_str();
+    setThreadName(std::this_thread::get_id(), peanut::CurrentThread::t_threadName);
     try {
       func_();
-      muduo::CurrentThread::t_threadName = "finished";
+      peanut::CurrentThread::t_threadName = "finished";
     } catch (const Exception &ex) {
-      muduo::CurrentThread::t_threadName = "crashed";
+      peanut::CurrentThread::t_threadName = "crashed";
       fprintf(stderr, "exception caught in Thread %s\n", name_.c_str());
       fprintf(stderr, "reason: %s\n", ex.what());
       fprintf(stderr, "stack trace: %s\n", ex.stackTrace());
       abort();
     } catch (const std::exception &ex) {
-      muduo::CurrentThread::t_threadName = "crashed";
+      peanut::CurrentThread::t_threadName = "crashed";
       fprintf(stderr, "exception caught in Thread %s\n", name_.c_str());
       fprintf(stderr, "reason: %s\n", ex.what());
       abort();
     } catch (...) {
-      muduo::CurrentThread::t_threadName = "crashed";
+      peanut::CurrentThread::t_threadName = "crashed";
       fprintf(stderr, "unknown exception caught in Thread %s\n", name_.c_str());
       throw;  // rethrow
     }
@@ -179,4 +178,4 @@ int Thread::join() {
   return 0;
 }
 
-}  // namespace muduo
+}  // namespace peanut

@@ -1,16 +1,16 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_CONDITION_H
-#define MUDUO_BASE_CONDITION_H
+#ifndef PEANUT_BASE_CONDITION_H
+#define PEANUT_BASE_CONDITION_H
 
 #include <condition_variable>
 
 #include "Mutex.h"
 
-namespace muduo {
+namespace peanut {
 
 class Condition : noncopyable {
  public:
@@ -40,6 +40,6 @@ class Condition : noncopyable {
   std::condition_variable_any pcond_;
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
-#endif  // MUDUO_BASE_CONDITION_H
+#endif  // PEANUT_BASE_CONDITION_H

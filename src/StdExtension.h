@@ -1,5 +1,10 @@
-#ifndef MUDUO_BASE_STD_EXTEMSION_HPP
-#define MUDUO_BASE_STD_EXTEMSION_HPP
+// Use of this source code is governed by a BSD-style license
+// that can be found in the License file.
+//
+// Author:Lu Li (lilucpp at gmail dot com)
+
+#ifndef PEANUT_BASE_STDEXTEMSION_H
+#define PEANUT_BASE_STDEXTEMSION_H
 
 #include <map>
 
@@ -152,4 +157,4 @@ ofstream &operator<<(ofstream &ofs, const basic_string<T> &s) {
 
 }  // namespace std
 
-#endif
+#endif  // PEANUT_BASE_STDEXTEMSION_H

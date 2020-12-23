@@ -1,19 +1,19 @@
 // Use of this source code is governed by a BSD-style license
 // that can be found in the License file.
 //
-// Author: Shuo Chen (chenshuo at chenshuo dot com)
+// Author:Lu Li (lilucpp at gmail dot com)
 
-#ifndef MUDUO_BASE_MUTEX_H
-#define MUDUO_BASE_MUTEX_H
+#ifndef PEANUT_BASE_MUTEX_H
+#define PEANUT_BASE_MUTEX_H
 
 #include <assert.h>
 
 #include <mutex>
 
 #include "CurrentThread.h"
-#include "noncopyable.h"
+#include "Noncopyable.h"
 
-namespace muduo {
+namespace peanut {
 
 // Use as data member of a class, eg.
 //
@@ -91,11 +91,11 @@ class MutexLockGuard : noncopyable {
   MutexLock &mutex_;
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
 // Prevent misuse like:
 // MutexLockGuard(mutex_);
 // A tempory object doesn't hold the lock for long!
 #define MutexLockGuard(x) error "Missing guard object name"
 
-#endif  // MUDUO_BASE_MUTEX_H
+#endif  // PEANUT_BASE_MUTEX_H

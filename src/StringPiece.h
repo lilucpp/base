@@ -37,15 +37,15 @@
 //
 // Arghh!  I wish C++ literals were automatically of type "string".
 
-#ifndef MUDUO_BASE_STRINGPIECE_H
-#define MUDUO_BASE_STRINGPIECE_H
+#ifndef PEANUT_BASE_STRINGPIECE_H
+#define PEANUT_BASE_STRINGPIECE_H
 
 #include <string.h>
 #include <iosfwd>  // for ostream forward-declaration
 
 #include "Types.h"
 
-namespace muduo {
+namespace peanut {
 
 // For passing C-style string argument to a function.
 class StringArg  // copyable
@@ -152,7 +152,7 @@ class StringPiece {
   }
 };
 
-}  // namespace muduo
+}  // namespace peanut
 
 // ------------------------------------------------------------------
 // Functions used to create STL containers that use StringPiece
@@ -164,7 +164,7 @@ class StringPiece {
 #ifdef HAVE_TYPE_TRAITS
 // This makes vector<StringPiece> really fast for some STL implementations
 template <>
-struct __type_traits<muduo::StringPiece> {
+struct __type_traits<peanut::StringPiece> {
   typedef __true_type has_trivial_default_constructor;
   typedef __true_type has_trivial_copy_constructor;
   typedef __true_type has_trivial_assignment_operator;
@@ -174,6 +174,6 @@ struct __type_traits<muduo::StringPiece> {
 #endif
 
 // allow StringPiece to be logged
-std::ostream &operator<<(std::ostream &o, const muduo::StringPiece &piece);
+std::ostream &operator<<(std::ostream &o, const peanut::StringPiece &piece);
 
-#endif  // MUDUO_BASE_STRINGPIECE_H
+#endif  // PEANUT_BASE_STRINGPIECE_H
