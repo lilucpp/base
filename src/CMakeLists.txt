@@ -10,4 +10,16 @@ ThreadPool.cc
 )
     
 add_library(PeanutBase STATIC ${base_SRCS})
-# target_link_libraries(bustub_shared thirdparty_murmur3)
+
+############################################################
+# Install
+############################################################
+
+# Library
+install (TARGETS PeanutBase
+    LIBRARY DESTINATION lib)
+
+# Header files
+install(DIRECTORY  ${PROJECT_SOURCE_DIR}/src/
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h")

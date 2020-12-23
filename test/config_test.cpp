@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 using namespace muduo;
-TEST(COnfigTest, Test1) {
+TEST(ConfigTest, Test1) {
   Config conf("./testdata/1.conf");
   std::string res;
   ASSERT_EQ("{key1:val1, key2:val2}", res << conf);

@@ -52,6 +52,7 @@ class GzipFile : noncopyable {
 
   static GzipFile openForAppend(StringArg filename) { return GzipFile(::gzopen(filename.c_str(), "abe")); }
 
+  // windows not support
   static GzipFile openForWriteExclusive(StringArg filename) { return GzipFile(::gzopen(filename.c_str(), "wbxe")); }
 
   static GzipFile openForWriteTruncate(StringArg filename) { return GzipFile(::gzopen(filename.c_str(), "wbe")); }
