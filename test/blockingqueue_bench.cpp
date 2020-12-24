@@ -8,7 +8,7 @@
 #include <Windows.h>
 #else
 #include <unistd.h>
-#endif
+#endif  // _WIN32
 
 #include <map>
 #include <string>
@@ -38,9 +38,8 @@ class Bench {
 #if defined _WIN32
       Sleep(1);
 #else
-      // std::this_thread::sleep_for(std::chrono::microseconds(10));
       usleep(1000);
-#endif
+#endif  // _WIN32
     }
   }
 

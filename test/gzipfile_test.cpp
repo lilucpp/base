@@ -8,7 +8,7 @@ int main() {
   _unlink(filename);
 #else
   ::unlink(filename);
-#endif
+#endif  // _WIN32
   const char data[] = "123456789012345678901234567890123456789012345678901234567890\n";
   {
     peanut::GzipFile writer = peanut::GzipFile::openForAppend(filename);

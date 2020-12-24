@@ -11,7 +11,7 @@
 #include <process.h>
 #else
 #include <unistd.h>
-#endif
+#endif  // _WIN32
 
 class Test {
  public:
@@ -88,7 +88,7 @@ int main() {
   printf("pid=%d, tid=%d\n", _getpid(), peanut::CurrentThread::tid());
 #else
   printf("pid=%d, tid=%d\n", ::getpid(), peanut::CurrentThread::tid());
-#endif
+#endif  // _WIN32
   testMove();
   Test t(5);
   t.run(100);

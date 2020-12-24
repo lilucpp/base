@@ -7,7 +7,7 @@
 #include <process.h>
 #else
 #include <unistd.h>
-#endif
+#endif  // _WIN32
 #include <memory>
 #include <string>
 #include <vector>
@@ -83,7 +83,7 @@ int main() {
   printf("pid=%d, tid=%d\n", _getpid(), peanut::CurrentThread::tid());
 #else
   printf("pid=%d, tid=%d\n", ::getpid(), peanut::CurrentThread::tid());
-#endif
+#endif  // _WIN32
   Test t(5);
   t.run(100);
   t.joinAll();

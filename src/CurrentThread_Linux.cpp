@@ -3,15 +3,10 @@
 //
 // Author:Lu Li (lilucpp at gmail dot com)
 
-#include "CurrentThread.h"
-#include <stdlib.h>
-
-#if defined _WIN32
-#include "boost/stacktrace.hpp"
-#else
 #include <cxxabi.h>
 #include <execinfo.h>
-#endif
+#include <stdlib.h>
+#include "CurrentThread.h"
 
 namespace peanut {
 namespace CurrentThread {
@@ -19,12 +14,8 @@ __thread pid_t t_cachedTid = 0;
 __thread char t_tidString[32];
 __thread int t_tidStringLength = 6;
 __thread const char *t_threadName = "unknown";
-
-#if defined _WIN32
-static_assert(std::is_same<unsigned long, pid_t>::value, "pid_t should be unsigned long");
-string stackTrace(bool demangle) { return boost::stacktrace::to_string(boost::stacktrace::stacktrace()); }
-#else
 static_assert(std::is_same<int, pid_t>::value, "pid_t should be int");
+
 string stackTrace(bool demangle) {
   string stack;
   const int max_frames = 200;
@@ -72,8 +63,6 @@ string stackTrace(bool demangle) {
   }
   return stack;
 }
-
-#endif
 
 }  // namespace CurrentThread
 }  // namespace peanut

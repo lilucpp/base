@@ -3,87 +3,39 @@
 //
 // Author:Lu Li (lilucpp at gmail dot com)
 
-#include "Thread.h"
 #include "CurrentThread.h"
 #include "Exception.h"
+#include "Thread.h"
 #include "Timestamp.h"
 
 #include <errno.h>
-#include <stdio.h>
-#include <sys/types.h>
-
-#if defined _WIN32
-#include <windows.h>
-#else
 #include <linux/unistd.h>
+#include <stdio.h>
 #include <sys/prctl.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <type_traits>
-#endif
-
 #include <sstream>
 #include <type_traits>
 
 namespace peanut {
 namespace detail {
 
-#if defined _WIN32
-// https://github.com/facebook/folly/blob/master/folly/system/ThreadName.cpp
-static constexpr size_t kMaxThreadNameLength = 16;
-bool setThreadName(std::thread::id tid, const string &name) {
-  auto trimmedName = name.substr(0, kMaxThreadNameLength - 1);
-  static_assert(sizeof(unsigned int) == sizeof(std::thread::id),
-                "This assumes std::thread::id is a thin wrapper around "
-                "the thread id as an unsigned int, but that doesn't appear to be true.");
-
-// http://msdn.microsoft.com/en-us/library/xcb2z8hs.aspx
-#pragma pack(push, 8)
-  struct THREADNAME_INFO {
-    DWORD dwType;      // Must be 0x1000
-    LPCSTR szName;     // Pointer to name (in user address space)
-    DWORD dwThreadID;  // Thread ID (-1 for caller thread)
-    DWORD dwFlags;     // Reserved for future use; must be zero
-  };
-  union TNIUnion {
-    THREADNAME_INFO tni;
-    ULONG_PTR upArray[4];
-  };
-#pragma pack(pop)
-
-  static constexpr DWORD kMSVCException = 0x406D1388;
-
-  // std::thread::id is a thin wrapper around an integral thread id,
-  // so just extract the ID.
-  unsigned int id;
-  std::memcpy(&id, &tid, sizeof(id));
-
-  TNIUnion tniUnion = {0x1000, trimmedName.data(), id, 0};
-  // This has to be in a separate stack frame from trimmedName, which requires
-  // C++ object destruction semantics.
-  return [&]() {
-    __try {
-      RaiseException(kMSVCException, 0, 4, tniUnion.upArray);
-    } __except (GetExceptionCode() == kMSVCException ? EXCEPTION_CONTINUE_EXECUTION : EXCEPTION_EXECUTE_HANDLER) {
-      // Swallow the exception when a debugger isn't attached.
-    }
-    return true;
-  }();
-}
-
-pid_t gettid() { return GetCurrentThreadId(); }
-
-#else
 pid_t gettid() { return static_cast<pid_t>(::syscall(SYS_gettid)); }
 
-#endif  // _WIN32
+void afterFork() {
+  muduo::CurrentThread::t_cachedTid = 0;
+  muduo::CurrentThread::t_threadName = "main";
+  CurrentThread::tid();
+  // no need to call pthread_atfork(NULL, NULL, &afterFork);
+}
 
 class ThreadNameInitializer {
  public:
   ThreadNameInitializer() {
     peanut::CurrentThread::t_threadName = "main";
     CurrentThread::tid();
+    pthread_atfork(NULL, NULL, &afterFork);
   }
 };
 
@@ -106,11 +58,7 @@ struct ThreadData {
     latch_ = NULL;
 
     peanut::CurrentThread::t_threadName = name_.empty() ? "peanutThread" : name_.c_str();
-#if defined _WIN32
-    setThreadName(std::this_thread::get_id(), peanut::CurrentThread::t_threadName);
-#else
     ::prctl(PR_SET_NAME, peanut::CurrentThread::t_threadName);
-#endif
     try {
       func_();
       peanut::CurrentThread::t_threadName = "finished";

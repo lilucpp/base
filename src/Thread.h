@@ -16,7 +16,6 @@
 
 #if defined _WIN32
 #define pthread_t size_t
-
 #endif  // _WIN32
 
 namespace peanut {

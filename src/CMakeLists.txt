@@ -1,18 +1,33 @@
 set(base_SRCS
 Condition.cpp
 CountDownLatch.cpp
-CurrentThread.cpp
 Date.cpp
 Exception.cpp
 Timestamp.cpp
-Thread.cpp
 ThreadPool.cpp
 )
-    
+
+if(UNIX)
+    set(base_SRCS 
+    ${base_SRCS}
+    CurrentThread_Linux.cpp
+    Thread_Linux.cpp
+    )
+
+else()
+    set(base_SRCS 
+    ${base_SRCS} 
+    CurrentThread_Win32.cpp
+    Thread_Win32.cpp
+    )
+
+endif()
+
 add_library(PeanutBase STATIC ${base_SRCS})
 if(UNIX)
 	target_link_libraries(PeanutBase pthread)
 endif()
+
 ############################################################
 # Install
 ############################################################

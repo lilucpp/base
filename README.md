@@ -6,76 +6,94 @@
 
 受[muduo](https://github.com/chenshuo/muduo)影响，出于学习目的，尝试移植一部分基础库到windows上，后来又”copy”了[limonp](https://github.com/yanyiwu/limonp)库的部分功能，作为平时开发基础库。
 
-## 编译
+## 代码风格
 
-1. windows
+google风格。修改了三处，如下，详见：.clang-format
 
-   安装包管理工具vcpkg，使用vcpkg安装依赖库：
+```
+BasedOnStyle: Google
+DerivePointerAlignment: false
+PointerAlignment: Right
+ColumnLimit: 120
+```
+
+**提交代码前请使用格式化脚本格式化代码。**
+
+```shell
+python .\build_support\run_clang_format.py .\test
+python .\build_support\run_clang_format.py .\src
+```
+
+格式化脚本可以设置跳过文件夹和文件。
+
+```python
+...
+skippath = ['zib.h', 'zipconf.h']
+for val in skippath:
+  if filename.endswith(val):
+    return True 
+...
+
+...
+skipdir = ['baselib','lib','.git','.vscode']
+for val in skipdir:
+  if dir.endswith(val):
+    return True 
+...
+
+```
+
+## 编译说明
+
+1. linux
+
+   依赖安装
    
-   - boost
-     - boost-utility
-     - boost-circular-buffer
-     - boost-stacktrace
-   - zlib
-   - gtest。
+   ```shell
+   sudo apt install libgtest-dev
+   cd /usr/src/gtest
+   sudo mkdir build
+   cd build
+   sudo cmake ..
+   sudo make 
+	sudo make install
+	
+   sudo apt install gtest zlib1g-dev libboost-dev
+   ```
    
-	```bat
-	python .\build_support\run_clang_format.py .\test
-   python .\build_support\run_clang_format.py .\src
+   编译
+   
+   ```shell
+   git clone https://github.com/lilucpp/base.git
+   cd base
+   mkdir build
+   cd build
+   cmake ..
+   make 
+   make install
+   ```
+   
+2. windows
+
+   依赖安装，使用包管理工具vcpkg。
+
+   ```bat
+   ./vcpkg.exe install boost-utility boost-circular-buffer boost-stacktrace zlib gtest
+   ```
+
+   编译
+
+   ```bat
+   git clone https://github.com/lilucpp/base.git
    mkdir build
    cd build
    cmake .. -G "Visual Studio 14 2015"  -DCMAKE_TOOLCHAIN_FILE=P:/vcpkg/scripts/buildsystems/vcpkg.cmake
    cmake --build . --config Release
    cmake --install .
    ```
-   
-   最终目录如下：
-   ```bat
-   ~base/build/PeanutBase$ tree
-   .
-   ├── bin
-   │   ├── blockingqueue_bench.exe
-   │   ├── blockingqueue_test.exe
-   │   ├── boundedblockingqueue_test.exe
-   │   ├── gtest_main.exe
-   │   ├── gzipfile_test.exe
-   │   ├── singleton_test.exe
-   │   ├── testdata
-   │   │   ├── 1.conf
-   │   │   ├── dict.gbk
-   │   │   └── dict.utf8
-   │   └── threadpool_test.exe
-   ├── include
-   │   ├── Atomic.h
-   │   ├── BlockingQueue.h
-   │   ├── BoundedBlockingQueue.h
-   │   ├── Colors.h
-   │   ├── Condition.h
-   │   ├── Config.h
-   │   ├── Copyable.h
-   │   ├── CountDownLatch.h
-   │   ├── CurrentThread.h
-   │   ├── Date.h
-   │   ├── Exception.h
-   │   ├── GzipFile.h
-   │   ├── Mutex.h
-   │   ├── Noncopyable.h
-   │   ├── Singleton.h
-   │   ├── StdExtension.h
-   │   ├── StringPiece.h
-   │   ├── StringUtil.h
-   │   ├── Thread.h
-   │   ├── ThreadPool.h
-   │   ├── Timestamp.h
-   │   ├── Types.h
-   │   └── portable_endian.h
-   └── lib
-       └── PeanutBase.lib
-   ```
-   
-   
 
-主要功能
+
+## 主要功能
 
 1. Atomic
 2. BlockingQueue   
@@ -103,5 +121,5 @@
 ## todo
 
 1. 减少boost依赖
-2. 跨平台
+2. ~~跨平台~~
 3. 增加其他常用功能

@@ -19,10 +19,7 @@ namespace peanut {
 /// This class is immutable.
 /// It's recommended to pass it by value, since it's passed in register on x64.
 ///
-class Date : public peanut::copyable
-// public boost::less_than_comparable<Date>,
-// public boost::equality_comparable<Date>
-{
+class Date : public peanut::copyable {
  public:
   struct YearMonthDay {
     int year;   // [1900..2500]

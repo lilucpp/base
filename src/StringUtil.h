@@ -340,7 +340,7 @@ inline void GetTime(const std::string &format, std::string &timeStr) {
   localtime_s(&tm_now, &timeNow);
 #else
   localtime_r(&timeNow, &tm_now);
-#endif
+#endif  // _WIN32
   size_t len = strftime((char *)timeStr.c_str(), timeStr.size(), format.c_str(), &tm_now);
   timeStr.resize(len);
 }
