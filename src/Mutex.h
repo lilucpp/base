@@ -7,25 +7,12 @@
 #define PEANUT_BASE_MUTEX_H
 
 #include <assert.h>
-
 #include <mutex>
-
 #include "CurrentThread.h"
 #include "Noncopyable.h"
 
 namespace peanut {
 
-// Use as data member of a class, eg.
-//
-// class Foo
-// {
-//  public:
-//   int size() const;
-//
-//  private:
-//   mutable MutexLock mutex_;
-//   std::vector<int> data_ GUARDED_BY(mutex_);
-// };
 class MutexLock : noncopyable {
  public:
   MutexLock() : holder_(0) {}

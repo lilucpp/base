@@ -18,18 +18,6 @@ class AtomicIntegerT : noncopyable {
  public:
   AtomicIntegerT() : value_(0) {}
 
-  // uncomment if you need copying and assignment
-  //
-  // AtomicIntegerT(const AtomicIntegerT& that)
-  //   : value_(that.get())
-  // {}
-  //
-  // AtomicIntegerT& operator=(const AtomicIntegerT& that)
-  // {
-  //   getAndSet(that.get());
-  //   return *this;
-  // }
-
   T get() { return value_.load(); }
 
   T getAndAdd(T x) { return value_.fetch_add(x); }

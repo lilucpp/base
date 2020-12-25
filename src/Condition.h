@@ -7,7 +7,6 @@
 #define PEANUT_BASE_CONDITION_H
 
 #include <condition_variable>
-
 #include "Mutex.h"
 
 namespace peanut {

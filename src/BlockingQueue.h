@@ -6,11 +6,10 @@
 #ifndef PEANUT_BASE_BLOCKINGQUEUE_H
 #define PEANUT_BASE_BLOCKINGQUEUE_H
 
-#include "Condition.h"
-#include "Mutex.h"
-
 #include <assert.h>
 #include <deque>
+#include "Condition.h"
+#include "Mutex.h"
 
 namespace peanut {
 
@@ -43,7 +42,7 @@ class BlockingQueue : noncopyable {
 
     queue_.pop_front();
 
-    return std::move(front);
+    return front;
   }
 
   size_t size() const {
