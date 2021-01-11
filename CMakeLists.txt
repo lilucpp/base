@@ -55,6 +55,12 @@ if(NOT GTEST_FOUND)
     message(FATAL_ERROR "Cannot found gtest")
 endif()
 
+if(MSVC)
+  add_compile_options(/W4 /WX)
+else()
+  add_compile_options(-Wall -Wextra -pedantic -Werror -Wconversion -Wno-unused-parameter -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wwrite-strings -march=native)
+endif()
+
 set(PEANUT_SRC_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

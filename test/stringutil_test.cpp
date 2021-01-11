@@ -123,7 +123,8 @@ TEST(StringUtilTest, Trim) {
   // ASSERT_EQ(trim(s), "x y");
 
   // check if it core dump when using isalpha
-  wchar_t w = 1000024;
+  int val = 1000024;
+  wchar_t w = static_cast<wchar_t>(val);
   ASSERT_FALSE(IsSpace(w));
   w = 0x20;
   ASSERT_TRUE(IsSpace(w));
