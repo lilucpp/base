@@ -16,7 +16,10 @@ __thread int t_tidStringLength = 6;
 __thread const char *t_threadName = "unknown";
 
 static_assert(std::is_same<unsigned long, pid_t>::value, "pid_t should be unsigned long");
-string stackTrace(bool demangle) { return boost::stacktrace::to_string(boost::stacktrace::stacktrace()); }
+string stackTrace(bool demangle) {
+  demangle;
+  return boost::stacktrace::to_string(boost::stacktrace::stacktrace());
+}
 
 }  // namespace CurrentThread
 }  // namespace peanut

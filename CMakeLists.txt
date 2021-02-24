@@ -37,7 +37,7 @@ elseif(MSVC)
     # cmake --build . --config Release
 endif()
 
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS locale)
 find_package(GTest REQUIRED)
 find_package(ZLIB REQUIRED)
 

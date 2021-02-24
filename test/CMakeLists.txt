@@ -18,8 +18,10 @@ target_link_libraries(singleton_test PeanutBase)
 add_executable(threadpool_test threadpool_test.cpp)
 target_link_libraries(threadpool_test PeanutBase)
 
-add_executable(gtest_main gtest_main.cpp colorprint_test.cpp config_test.cpp stringutil_test.cpp atomic_test.cpp)
-target_link_libraries(gtest_main GTest::GTest)
+message("boost libraries: ${Boost_LIBRARIES}")
+link_directories(${Boost_LIBRARY_DIRS})
+add_executable(gtest_main gtest_main.cpp colorprint_test.cpp config_test.cpp stringutil_test.cpp atomic_test.cpp encoding_test.cpp)
+target_link_libraries(gtest_main GTest::GTest  ${Boost_LIBRARIES})
 
 # set(TESTDATA_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 #if(CMAKE_BUILD_TYPE STREQUAL "Release")
