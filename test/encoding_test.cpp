@@ -1,4 +1,5 @@
 #include "../src/Encoding.h"
+#include "../src/Application.h"
 #include "gtest/gtest.h"
 #include <fstream>
 #include <iostream>
@@ -9,7 +10,7 @@ using namespace std;
 
 TEST(EncodingTest, Test_gbktoutf8) {
   string utf8, gbk;
-  fstream u8ifs("./testdata/dict.utf8", fstream::binary | fstream::in);
+  fstream u8ifs(GetApplicationDir() + "/testdata/dict.utf8", fstream::binary | fstream::in);
   fstream gbkifs("./testdata/dict.gbk", fstream::binary | fstream::in);
   ASSERT_TRUE(u8ifs.is_open());
   ASSERT_TRUE(gbkifs.is_open());
@@ -21,8 +22,8 @@ TEST(EncodingTest, Test_gbktoutf8) {
 
 TEST(EncodingTest, Test_utf8togbk) {
   string utf8, gbk;
-  fstream u8ifs("./testdata/dict.utf8", fstream::binary | fstream::in);
-  fstream gbkifs("./testdata/dict.gbk", fstream::binary | fstream::in);
+  fstream u8ifs(GetApplicationDir() + "/testdata/dict.utf8", fstream::binary | fstream::in);
+  fstream gbkifs(GetApplicationDir() + "/testdata/dict.gbk", fstream::binary | fstream::in);
   ASSERT_TRUE(u8ifs.is_open());
   ASSERT_TRUE(gbkifs.is_open());
 
@@ -34,8 +35,8 @@ TEST(EncodingTest, Test_utf8togbk) {
 TEST(EncodingTest, Test_gbktounicode) {
   string gbk;
   wstring unicode;
-  wfstream unicodeifs("./testdata/dict.unicode", fstream::binary | wfstream::in);
-  fstream gbkifs("./testdata/dict.gbk", fstream::binary | fstream::in);
+  wfstream unicodeifs(GetApplicationDir() + "/testdata/dict.unicode", fstream::binary | wfstream::in);
+  fstream gbkifs(GetApplicationDir() + "/testdata/dict.gbk", fstream::binary | fstream::in);
   ASSERT_TRUE(unicodeifs.is_open());
   ASSERT_TRUE(gbkifs.is_open());
   unicodeifs.imbue(std::locale(unicodeifs.getloc(), new std::codecvt_utf16<wchar_t, 0xffff, std::consume_header>));
@@ -48,8 +49,8 @@ TEST(EncodingTest, Test_gbktounicode) {
 TEST(EncodingTest, Test_unicodetogbk) {
   string gbk;
   wstring unicode;
-  wfstream unicodeifs("./testdata/dict.unicode", fstream::binary | fstream::in);
-  fstream gbkifs("./testdata/dict.gbk", fstream::binary | fstream::in);
+  wfstream unicodeifs(GetApplicationDir() + "/testdata/dict.unicode", fstream::binary | fstream::in);
+  fstream gbkifs(GetApplicationDir() + "/testdata/dict.gbk", fstream::binary | fstream::in);
   ASSERT_TRUE(unicodeifs.is_open());
   ASSERT_TRUE(gbkifs.is_open());
   unicodeifs.imbue(std::locale(unicodeifs.getloc(), new std::codecvt_utf16<wchar_t, 0xffff, std::consume_header>));
@@ -62,8 +63,8 @@ TEST(EncodingTest, Test_unicodetogbk) {
 TEST(EncodingTest, Test_utf8tounicode) {
   string utf8;
   wstring unicode;
-  fstream u8ifs("./testdata/dict.utf8", fstream::binary | fstream::in);
-  wfstream unicodeifs("./testdata/dict.unicode", fstream::binary | fstream::in);
+  fstream u8ifs(GetApplicationDir() + "/testdata/dict.utf8", fstream::binary | fstream::in);
+  wfstream unicodeifs(GetApplicationDir() + "/testdata/dict.unicode", fstream::binary | fstream::in);
   ASSERT_TRUE(unicodeifs.is_open());
   ASSERT_TRUE(u8ifs.is_open());
   unicodeifs.imbue(std::locale(unicodeifs.getloc(), new std::codecvt_utf16<wchar_t, 0xffff, std::consume_header>));
@@ -76,8 +77,8 @@ TEST(EncodingTest, Test_utf8tounicode) {
 TEST(EncodingTest, Test_unicodetoutf8) {
   string utf8;
   wstring unicode;
-  fstream u8ifs("./testdata/dict.utf8", fstream::binary | fstream::in);
-  wfstream unicodeifs("./testdata/dict.unicode", fstream::binary | fstream::in);
+  fstream u8ifs(GetApplicationDir() + "/testdata/dict.utf8", fstream::binary | fstream::in);
+  wfstream unicodeifs(GetApplicationDir() + "/testdata/dict.unicode", fstream::binary | fstream::in);
   ASSERT_TRUE(unicodeifs.is_open());
   ASSERT_TRUE(u8ifs.is_open());
   unicodeifs.imbue(std::locale(unicodeifs.getloc(), new std::codecvt_utf16<wchar_t, 0xffff, std::consume_header>));

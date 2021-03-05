@@ -24,8 +24,8 @@ namespace detail {
 pid_t gettid() { return static_cast<pid_t>(::syscall(SYS_gettid)); }
 
 void afterFork() {
-  muduo::CurrentThread::t_cachedTid = 0;
-  muduo::CurrentThread::t_threadName = "main";
+  peanut::CurrentThread::t_cachedTid = 0;
+  peanut::CurrentThread::t_threadName = "main";
   CurrentThread::tid();
   // no need to call pthread_atfork(NULL, NULL, &afterFork);
 }

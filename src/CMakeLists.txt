@@ -5,18 +5,19 @@ Date.cpp
 Exception.cpp
 Timestamp.cpp
 ThreadPool.cpp
+Application.cpp
 )
 
 if(UNIX)
-    set(base_SRCS 
+    set(base_SRCS
     ${base_SRCS}
     CurrentThread_Linux.cpp
     Thread_Linux.cpp
     )
 
 else()
-    set(base_SRCS 
-    ${base_SRCS} 
+    set(base_SRCS
+    ${base_SRCS}
     CurrentThread_Win32.cpp
     Thread_Win32.cpp
     )

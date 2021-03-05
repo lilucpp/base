@@ -1,9 +1,12 @@
 #include "../src/Config.h"
+#include "../src/Application.h"
 #include "gtest/gtest.h"
 
 using namespace peanut;
 TEST(ConfigTest, Test1) {
-  Config conf("./testdata/1.conf");
+  std::string path = GetApplicationDir() + "/testdata/1.conf";
+  printf("------testdata path=%s\n", path.c_str());
+  Config conf(GetApplicationDir() + "/testdata/1.conf");
   std::string res;
   ASSERT_EQ("{key1:val1, key2:val2}", res << conf);
   res = conf.Get("key1", "");
