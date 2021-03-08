@@ -120,4 +120,3 @@ TEST(StringUtilTest, PathJoin) {
   ASSERT_EQ(answer, pathJoin(path1, path2));
   ASSERT_EQ(answer, pathJoin(path3, path4));
 }
-

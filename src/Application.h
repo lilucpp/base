@@ -8,21 +8,19 @@
 
 #include <string>
 #ifdef _WIN32
-#include <windows.h>    //GetModuleFileNameW
+#include <windows.h>  //GetModuleFileNameW
 #else
 #include <limits.h>
-#include <unistd.h>     //readlink
+#include <unistd.h>  //readlink
 #endif
 
 namespace peanut {
-   
-    std::string GetApplicationPath();
-    std::string GetApplicationDir();
+std::string GetApplicationPath();
+std::string GetApplicationDir();
 
-    std::wstring GetApplicationPathW();
-    std::wstring GetApplicationDirW();
+std::wstring GetApplicationPathW();
+std::wstring GetApplicationDirW();
 
-}
+}  // namespace peanut
 
-
-#endif // PEANUT_BASE_APPLICATION_H
+#endif  // PEANUT_BASE_APPLICATION_H

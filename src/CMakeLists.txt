@@ -25,6 +25,7 @@ else()
 endif()
 
 add_library(PeanutBase STATIC ${base_SRCS})
+target_link_libraries(PeanutBase ${Boost_LIBRARIES})
 if(UNIX)
 	target_link_libraries(PeanutBase pthread)
 endif()
