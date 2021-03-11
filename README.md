@@ -64,13 +64,13 @@ for val in skipdir:
    编译
    
    ```shell
-   git clone https://github.com/lilucpp/base.git
+   git clone --recursive https://github.com/lilucpp/base.git
    cd base
    mkdir build
    cd build
-   cmake ..
+   cmake .. -DFMT_INSTALL=1
    make 
-   make install
+   make install .
    ```
    
 2. windows
@@ -84,10 +84,10 @@ for val in skipdir:
    编译
 
    ```bat
-   git clone https://github.com/lilucpp/base.git
+   git clone --recursive https://github.com/lilucpp/base.git
    mkdir build
    cd build
-   cmake .. -G "Visual Studio 14 2015"  -DCMAKE_TOOLCHAIN_FILE=P:/vcpkg/scripts/buildsystems/vcpkg.cmake
+   cmake .. -G "Visual Studio 14 2015"  -DCMAKE_TOOLCHAIN_FILE=P:/vcpkg/scripts/buildsystems/vcpkg.cmake -DFMT_INSTALL=1
    cmake --build . --config Release --verbose
    cmake --install .
    ```
