@@ -69,5 +69,6 @@ SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/PeanutBase)
 
 message("install prefix: " ${CMAKE_INSTALL_PREFIX})
 
+add_subdirectory(fmt)
 add_subdirectory(src)
 add_subdirectory(test)
