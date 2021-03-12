@@ -23,32 +23,21 @@
 #include <string>
 #include <vector>
 #include "StdExtension.h"
+#include "fmt/printf.h"
 
 namespace peanut {
 
-inline std::string StringFormat(const char *fmt, ...) {
-  int size = 256;
-  std::string str;
-  va_list ap;
-  while (1) {
-    str.resize(size);
-    va_start(ap, fmt);
-    int n = vsnprintf(&str[0], size, fmt, ap);
-    va_end(ap);
-    if (n > -1 && n < size) {
-      str.resize(n);
-      return str;
-    }
-    if (n > -1)
-      size = n + 1;
-    else
-      size *= 2;
-  }
-  return str;
+#ifdef _WIN32
+#pragma warning(disable : 4505)
+#endif // _WIN32
+
+template <typename S, typename... Args>
+inline std::string StringFormat(const S &format_str, const Args &... args) {
+  return fmt::sprintf(format_str, args...);
 }
 
 template <class T>
-void join(T begin, T end, std::string &res, const std::string &connector) {
+void Join(T begin, T end, std::string &res, const std::string &connector) {
   if (begin == end) {
     return;
   }
@@ -63,106 +52,37 @@ void join(T begin, T end, std::string &res, const std::string &connector) {
 }
 
 template <class T>
-std::string join(T begin, T end, const std::string &connector) {
+std::string Join(T begin, T end, const std::string &connector) {
   std::string res;
-  join(begin, end, res, connector);
+  Join(begin, end, res, connector);
   return res;
 }
 
-inline std::string &upper(std::string &str) {
-  transform(str.begin(), str.end(), str.begin(), ::toupper);
-  return str;
-}
+std::string &Upper(std::string &str);
+std::string &Lower(std::string &str);
 
-inline std::string &lower(std::string &str) {
-  transform(str.begin(), str.end(), str.begin(), ::tolower);
-  return str;
-}
+bool IsSpace(unsigned c);
 
-inline bool IsSpace(unsigned c) {
-  // when passing large int as the argument of isspace, it core dump, so here
-  // need a type cast.
-  return c > 0xff ? false : std::isspace(c & 0xff) != 0;
-}
+std::string &LTrim(std::string &s);
+std::string &RTrim(std::string &s);
+std::string &Trim(std::string &s);
 
-inline std::string &ltrim(std::string &s) {
-  s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
-  return s;
-}
+void Split(const std::string &src, std::vector<std::string> &res, const std::string &pattern,
+           size_t maxsplit = std::string::npos);
+std::vector<std::string> Split(const std::string &src, const std::string &pattern, size_t maxsplit = std::string::npos);
 
-inline std::string &rtrim(std::string &s) {
-  s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
-  return s;
-}
-
-inline std::string &trim(std::string &s) { return ltrim(rtrim(s)); }
-
-inline void split(const std::string &src, std::vector<std::string> &res, const std::string &pattern,
-                  size_t maxsplit = std::string::npos) {
-  res.clear();
-  size_t Start = 0;
-  size_t end = 0;
-  std::string sub;
-  while (Start < src.size()) {
-    end = src.find_first_of(pattern, Start);
-    if (std::string::npos == end || res.size() >= maxsplit) {
-      sub = src.substr(Start);
-      res.push_back(sub);
-      return;
-    }
-    sub = src.substr(Start, end - Start);
-    res.push_back(sub);
-    Start = end + 1;
-  }
-  return;
-}
-
-inline std::vector<std::string> split(const std::string &src, const std::string &pattern,
-                                      size_t maxsplit = std::string::npos) {
-  std::vector<std::string> res;
-  split(src, res, pattern, maxsplit);
-  return res;
-}
-
-inline bool startsWith(const std::string &str, const std::string &prefix) {
-  if (prefix.length() > str.length()) {
-    return false;
-  }
-  return 0 == str.compare(0, prefix.length(), prefix);
-}
-
-inline bool endsWith(const std::string &str, const std::string &suffix) {
-  if (suffix.length() > str.length()) {
-    return false;
-  }
-  return 0 == str.compare(str.length() - suffix.length(), suffix.length(), suffix);
-}
+bool StartsWith(const std::string &str, const std::string &prefix);
+bool EndsWith(const std::string &str, const std::string &suffix);
 
 inline bool IsInStr(const std::string &str, char ch) { return str.find(ch) != std::string::npos; }
 
 /*
  * format example: "%Y-%m-%d %H:%M:%S"
  */
-inline void GetTime(const std::string &format, std::string &timeStr) {
-  time_t timeNow;
-  time(&timeNow);
-  timeStr.resize(64);
-  tm tm_now;
-#if defined _WIN32
-  localtime_s(&tm_now, &timeNow);
-#else
-  localtime_r(&timeNow, &tm_now);
-#endif  // _WIN32
-  size_t len = strftime(&timeStr[0], timeStr.size(), format.c_str(), &tm_now);
-  timeStr.resize(len);
-}
+void GetTime(const std::string &format, std::string &timeStr);
 
-inline std::string pathJoin(const std::string &path1, const std::string &path2) {
-  if (endsWith(path1, "/")) {
-    return path1 + path2;
-  }
-  return path1 + "/" + path2;
-}
+std::string PathJoin(const std::string &path1, const std::string &path2);
+std::string GenRandomString(const int len);
 
 }  // namespace peanut
 #endif  // PEANUT_BASE_STRINGUTIL_H
