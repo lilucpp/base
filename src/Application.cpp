@@ -1,5 +1,7 @@
 #include "Application.h"
 #include "Encoding.h"
+#include "boost/filesystem.hpp"
+#include "boost/system/error_code.hpp"
 
 namespace peanut {
 // https://stackoverflow.com/a/55579815/8330816
@@ -15,6 +17,14 @@ std::string GetApplicationPath() {
 #endif
 }
 
+std::wstring GetApplicationPathW() {
+#ifdef _WIN32
+  return GBKToUnicode(GetApplicationPath());
+#else
+  return UTF8ToUnicode(GetApplicationPath());
+#endif
+}
+
 std::string GetApplicationDir() {
   std::string path = GetApplicationPath();
   std::string::size_type pos = path.find_last_of("\\/");
@@ -23,8 +33,45 @@ std::string GetApplicationDir() {
   return ".";
 }
 
-std::wstring GetApplicationPathW() { return ToUnicode(GetApplicationPath(), GetSystemLocale()); }
+std::wstring GetApplicationDirW() {
+#ifdef _WIN32
+  return GBKToUnicode(GetApplicationDir());
+#else
+  return UTF8ToUnicode(GetApplicationDir());
+#endif
+}
 
-std::wstring GetApplicationDirW() { return ToUnicode(GetApplicationDir(), GetSystemLocale()); }
+std::string GetTempDir() {
+  boost::filesystem::path temp = boost::filesystem::temp_directory_path();
+
+  return temp.string();
+}
+
+std::wstring GetTempDirW() {
+  boost::filesystem::path temp = boost::filesystem::temp_directory_path();
+
+  return temp.wstring();
+}
+
+std::string GetUniquePath(const std::string& prefix, const std::string& suffix) {
+  boost::filesystem::path temp = boost::filesystem::temp_directory_path();
+  temp += boost::filesystem::path::preferred_separator;
+  temp += boost::filesystem::unique_path(prefix+"%%%%-%%%%-%%%%-%%%%");
+  if(suffix.empty())
+    return temp.string();
+  
+  return temp.string() + suffix;
+}
+
+std::wstring GetUniquePathW(const std::wstring& prefix, const std::wstring& suffix) {
+  boost::filesystem::path temp = boost::filesystem::temp_directory_path();
+  temp += boost::filesystem::path::preferred_separator;
+  temp += boost::filesystem::unique_path(prefix+L"%%%%-%%%%-%%%%-%%%%");
+
+  if(suffix.empty())
+    return temp.wstring();
+
+  return temp.wstring() + suffix;
+}
 
 }  // namespace peanut

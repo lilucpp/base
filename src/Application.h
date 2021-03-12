@@ -16,10 +16,16 @@
 
 namespace peanut {
 std::string GetApplicationPath();
-std::string GetApplicationDir();
-
 std::wstring GetApplicationPathW();
+
+std::string GetApplicationDir();
 std::wstring GetApplicationDirW();
+
+std::string GetTempDir();
+std::wstring GetTempDirW();
+
+std::string GetUniquePath(const std::string& prefix=std::string(), const std::string& suffix=std::string());
+std::wstring GetUniquePathW(const std::wstring& prefix=std::wstring(), const std::wstring& suffix=std::wstring());
 
 }  // namespace peanut
 

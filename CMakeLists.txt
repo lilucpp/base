@@ -37,7 +37,7 @@ elseif(MSVC)
     # cmake --build . --config Release
 endif()
 
-find_package(Boost COMPONENTS locale)
+find_package(Boost COMPONENTS locale filesystem)
 find_package(GTest REQUIRED)
 find_package(ZLIB REQUIRED)
 
@@ -54,6 +54,8 @@ endif()
 if(NOT GTEST_FOUND)
     message(FATAL_ERROR "Cannot found gtest")
 endif()
+
+include_directories(fmt/include)
 
 if(MSVC)
   add_compile_options(/W4 /WX)

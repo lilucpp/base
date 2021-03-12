@@ -3,6 +3,7 @@ Condition.cpp
 CountDownLatch.cpp
 Date.cpp
 Exception.cpp
+StringUtil.cpp
 Timestamp.cpp
 ThreadPool.cpp
 Application.cpp
@@ -25,7 +26,7 @@ else()
 endif()
 
 add_library(PeanutBase STATIC ${base_SRCS})
-target_link_libraries(PeanutBase ${Boost_LIBRARIES})
+target_link_libraries(PeanutBase ${Boost_LIBRARIES} fmt)
 if(UNIX)
 	target_link_libraries(PeanutBase pthread)
 endif()
