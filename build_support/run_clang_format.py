@@ -24,7 +24,7 @@ def isSkipFile(filename):
 
 def isSkipPath(dir):
     dir = dir.lower()
-    skipdir = ['.git','.vscode']
+    skipdir = ['.git','.vscode', 'fmt']
     for val in skipdir:
         if dir.endswith(val):
             return True 

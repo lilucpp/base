@@ -29,7 +29,7 @@ namespace peanut {
 
 #ifdef _WIN32
 #pragma warning(disable : 4505)
-#endif // _WIN32
+#endif  // _WIN32
 
 template <typename S, typename... Args>
 inline std::string StringFormat(const S &format_str, const Args &... args) {

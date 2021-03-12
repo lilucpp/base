@@ -53,23 +53,21 @@ std::wstring GetTempDirW() {
   return temp.wstring();
 }
 
-std::string GetUniquePath(const std::string& prefix, const std::string& suffix) {
+std::string GetUniquePath(const std::string &prefix, const std::string &suffix) {
   boost::filesystem::path temp = boost::filesystem::temp_directory_path();
   temp += boost::filesystem::path::preferred_separator;
-  temp += boost::filesystem::unique_path(prefix+"%%%%-%%%%-%%%%-%%%%");
-  if(suffix.empty())
-    return temp.string();
-  
+  temp += boost::filesystem::unique_path(prefix + "%%%%-%%%%-%%%%-%%%%");
+  if (suffix.empty()) return temp.string();
+
   return temp.string() + suffix;
 }
 
-std::wstring GetUniquePathW(const std::wstring& prefix, const std::wstring& suffix) {
+std::wstring GetUniquePathW(const std::wstring &prefix, const std::wstring &suffix) {
   boost::filesystem::path temp = boost::filesystem::temp_directory_path();
   temp += boost::filesystem::path::preferred_separator;
-  temp += boost::filesystem::unique_path(prefix+L"%%%%-%%%%-%%%%-%%%%");
+  temp += boost::filesystem::unique_path(prefix + L"%%%%-%%%%-%%%%-%%%%");
 
-  if(suffix.empty())
-    return temp.wstring();
+  if (suffix.empty()) return temp.wstring();
 
   return temp.wstring() + suffix;
 }
