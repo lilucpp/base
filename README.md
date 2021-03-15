@@ -123,5 +123,5 @@ for val in skipdir:
 1. ~~减少boost依赖~~ 放弃了减少boost依赖。
 2. ~~跨平台~~
 3. 增加其他常用功能
-4. 增加mkdir，递归创建
+4. ~~增加mkdir，递归创建~~
 5. 增加getfilecontent

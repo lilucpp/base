@@ -47,5 +47,17 @@ int main() {
   }
   if (!isRepeat) fmt::print("There is no duplicate path name in the container.\n");
 
+  std::string path;
+  std::wstring pathW;
+  path = GetTempDir();
+  if (!CreateDirectories(path)) {
+    fmt::print(fg(fmt::color::red), "[Failed] create dir:{}\n", path);
+  }
+  pathW = GetUniquePathW();
+  pathW += L"/t1/t2/t3";
+  if (!CreateDirectories(pathW)) {
+    fmt::print(fg(fmt::color::red), "[Failed] create dir:{}\n", path);
+  }
+
   return 0;
 }

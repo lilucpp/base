@@ -3,6 +3,7 @@ Condition.cpp
 CountDownLatch.cpp
 Date.cpp
 Exception.cpp
+File.cpp
 StringUtil.cpp
 Timestamp.cpp
 ThreadPool.cpp

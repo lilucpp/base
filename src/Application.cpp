@@ -72,4 +72,14 @@ std::wstring GetUniquePathW(const std::wstring &prefix, const std::wstring &suff
   return temp.wstring() + suffix;
 }
 
+bool CreateDirectories(const std::string &path) {
+  boost::system::error_code ec;
+  return boost::filesystem::create_directories(path, ec);
+}
+
+bool CreateDirectories(const std::wstring &path) {
+  boost::system::error_code ec;
+  return boost::filesystem::create_directories(path, ec);
+}
+
 }  // namespace peanut

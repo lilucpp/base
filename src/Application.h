@@ -27,6 +27,9 @@ std::wstring GetTempDirW();
 std::string GetUniquePath(const std::string &prefix = std::string(), const std::string &suffix = std::string());
 std::wstring GetUniquePathW(const std::wstring &prefix = std::wstring(), const std::wstring &suffix = std::wstring());
 
+bool CreateDirectories(const std::string &path);
+bool CreateDirectories(const std::wstring &path);
+
 }  // namespace peanut
 
 #endif  // PEANUT_BASE_APPLICATION_H

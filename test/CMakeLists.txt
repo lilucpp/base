@@ -21,6 +21,9 @@ target_link_libraries(threadpool_test PeanutBase)
 add_executable(application_test application_test.cpp)
 target_link_libraries(application_test PeanutBase)
 
+add_executable(file_test file_test.cpp)
+target_link_libraries(file_test PeanutBase)
+
 message("boost libraries: ${Boost_LIBRARIES}")
 link_directories(${Boost_LIBRARY_DIRS})
 add_executable(gtest_main gtest_main.cpp colorprint_test.cpp config_test.cpp stringutil_test.cpp atomic_test.cpp encoding_test.cpp)
