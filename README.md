@@ -124,4 +124,4 @@ for val in skipdir:
 2. ~~跨平台~~
 3. 增加其他常用功能
 4. ~~增加mkdir，递归创建~~
-5. 增加getfilecontent
+5. ~~增加getfilecontent~~
