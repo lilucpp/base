@@ -4,7 +4,7 @@
 
 此库是c++基础库。
 
-受[muduo](https://github.com/chenshuo/muduo)影响，出于学习目的，尝试移植一部分基础库到windows上，后来又”copy”了[limonp](https://github.com/yanyiwu/limonp)库的部分功能，作为平时开发基础库。
+受[muduo](https://github.com/chenshuo/muduo)影响，出于学习目的，尝试移植一部分基础库到windows上，后来又参考了[limonp](https://github.com/yanyiwu/limonp)库的部分功能，作为平时开发基础库。
 
 ## 代码风格
 
