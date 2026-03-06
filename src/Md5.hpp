@@ -31,8 +31,8 @@
 
 namespace peanut {
 
-//#pragma region MD5 defines
-// Constants for MD5Transform routine.
+// #pragma region MD5 defines
+//  Constants for MD5Transform routine.
 #define S11 7
 #define S12 12
 #define S13 17
@@ -85,7 +85,7 @@ namespace peanut {
     (a) = ROTATE_LEFT((a), (s));                 \
     (a) += (b);                                  \
   }
-//#pragma endregion
+// #pragma endregion
 
 typedef unsigned char BYTE;
 
@@ -111,9 +111,9 @@ class MD5 {
     unsigned char buffer[64]; /* input buffer */
   } context;
 
-  //#pragma region static helper functions
-  // The core of the MD5 algorithm is here.
-  // MD5 basic transformation. Transforms state based on block.
+  // #pragma region static helper functions
+  //  The core of the MD5 algorithm is here.
+  //  MD5 basic transformation. Transforms state based on block.
   static void MD5Transform(UINT4 state[4], unsigned char block[64]) {
     UINT4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
 
@@ -222,7 +222,7 @@ class MD5 {
       output[i] = ((UINT4)input[j]) | (((UINT4)input[j + 1]) << 8) | (((UINT4)input[j + 2]) << 16) |
                   (((UINT4)input[j + 3]) << 24);
   }
-  //#pragma endregion
+  // #pragma endregion
 
  public:
   // MAIN FUNCTIONS

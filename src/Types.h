@@ -20,7 +20,7 @@
 #if defined _WIN32
 // Windows
 #define __thread __declspec(thread)
-//#define __builtin_expect(EXP, C)		(EXP)
+// #define __builtin_expect(EXP, C)		(EXP)
 
 #endif  // _WIN32
 

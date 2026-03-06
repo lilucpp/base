@@ -13,9 +13,7 @@ namespace peanut {
 class ScopeGuard {
  public:
   template <class F, class... Args>
-  ScopeGuard(F &&f, Args &&...args)
-      : f_(std::bind(std::forward<F>(f), std::forward<Args>(args)...)),
-        active_(true) {}
+  ScopeGuard(F &&f, Args &&...args) : f_(std::bind(std::forward<F>(f), std::forward<Args>(args)...)), active_(true) {}
 
   ~ScopeGuard() {
     if (active_) {
@@ -29,9 +27,7 @@ class ScopeGuard {
   ScopeGuard(const ScopeGuard &) = delete;
   ScopeGuard &operator=(const ScopeGuard &) = delete;
 
-  ScopeGuard(ScopeGuard &&rhs) : f_(std::move(rhs.f_)), active_(rhs.active_) {
-    rhs.dismiss();
-  }
+  ScopeGuard(ScopeGuard &&rhs) : f_(std::move(rhs.f_)), active_(rhs.active_) { rhs.dismiss(); }
 
  private:
   std::function<void()> f_;

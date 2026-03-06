@@ -32,7 +32,7 @@ namespace peanut {
 #endif  // _WIN32
 
 template <typename S, typename... Args>
-inline std::string StringFormat(const S &format_str, const Args &... args) {
+inline std::string StringFormat(const S &format_str, const Args &...args) {
   return fmt::sprintf(format_str, args...);
 }
 
