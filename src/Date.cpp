@@ -5,6 +5,7 @@
 
 #include "Date.h"
 #include <stdio.h>  // snprintf
+#include <ctime>
 
 namespace peanut {
 namespace detail {

@@ -7,7 +7,7 @@
 namespace peanut {
 namespace detail {
 void SkipUTF8BOM(std::ifstream &fin) {
-  const char BOM[3] = {0xef, 0xbb, 0xbf};
+  const unsigned char BOM[3] = {0xef, 0xbb, 0xbf};
   char file_head[3] = {0};
   fin.seekg(0, std::ios::beg);
   fin.read(file_head, 3);
