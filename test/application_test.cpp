@@ -1,36 +1,37 @@
 #include "../src/Application.h"
 #include <map>
 #include "../src/Encoding.h"
-#include "fmt/color.h"
+#include <fmt/color.h>
+#include <fmt/xchar.h>
 
 int main() {
   using namespace peanut;
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "application path={}\n", GetApplicationPath());
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"application pathW={}\n", GetApplicationPathW());
+  fmt::print(L"application pathW={}\n", GetApplicationPathW());
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "application dir={}\n", GetApplicationDir());
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"application dirW={}\n", GetApplicationDirW());
+  fmt::print(L"application dirW={}\n", GetApplicationDirW());
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "temp dir={}\n", GetTempDir());
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"temp dirW={}\n", GetTempDirW());
+  fmt::print(L"temp dirW={}\n", GetTempDirW());
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "temp file path={}\n", GetUniquePath());
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"temp file pathW={}\n", GetUniquePathW());
+  fmt::print(L"temp file pathW={}\n", GetUniquePathW());
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "temp file path with prefix={}\n",
              GetUniquePath("superred_"));
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"temp file pathW with prefix={}\n",
+  fmt::print(L"temp file pathW with prefix={}\n",
              GetUniquePathW(L"superred_"));
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "temp file path with suffix={}\n",
              GetUniquePath("", ".txt"));
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"temp file pathW with suffix={}\n",
+  fmt::print(L"temp file pathW with suffix={}\n",
              GetUniquePathW(L"", L".txt"));
 
   fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), "temp file path with pre/suffix ={}\n",
              GetUniquePath("superred_", ".txt"));
-  fmt::print(fg(fmt::color::purple) | bg(fmt::color::cyan), L"temp file pathW with pre/suffix ={}\n",
+  fmt::print(L"temp file pathW with pre/suffix ={}\n",
              GetUniquePathW(L"superred_", L".txt"));
 
   std::map<std::string, int> c;

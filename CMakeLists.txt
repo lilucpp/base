@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
 set(BUILD_SHARED_LIBS ON)
-set(CMAKE_CXX_STANDARD 11)              # Compile as C++11
-set(CMAKE_CXX_STANDARD_REQUIRED ON)     # Require C++11 support
+set(CMAKE_CXX_STANDARD 17)              # Compile as C++17
+set(CMAKE_CXX_STANDARD_REQUIRED ON)     # Require C++17 support
 
 project(Peanut
         VERSION 0.0.1
@@ -27,6 +27,7 @@ if(MSVC)
 	)
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+    add_definitions(-D_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING)
 endif()
 
 if(UNIX) 
@@ -40,6 +41,18 @@ endif()
 find_package(Boost COMPONENTS locale filesystem)
 find_package(GTest REQUIRED)
 find_package(ZLIB REQUIRED)
+find_package(fmt CONFIG)
+
+if(fmt_FOUND)
+    message(STATUS "Found fmt via config: ${fmt_VERSION}")
+    # Alias to keep compatibility with target_link_libraries(PeanutBase ... fmt)
+    if(NOT TARGET fmt)
+        add_library(fmt ALIAS fmt::fmt)
+    endif()
+else()
+    include_directories(fmt/include)
+    add_subdirectory(fmt)
+endif()
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
@@ -55,8 +68,6 @@ if(NOT GTEST_FOUND)
     message(FATAL_ERROR "Cannot found gtest")
 endif()
 
-include_directories(fmt/include)
-
 if(MSVC)
   add_compile_options(/W4 /WX)
 else()
@@ -71,6 +82,5 @@ SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/PeanutBase)
 
 message("install prefix: " ${CMAKE_INSTALL_PREFIX})
 
-add_subdirectory(fmt)
 add_subdirectory(src)
 add_subdirectory(test)

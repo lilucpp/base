@@ -2,7 +2,7 @@
 #include <map>
 #include "../src/Encoding.h"
 #include "../src/StringUtil.h"
-#include "fmt/color.h"
+#include <fmt/color.h>
 
 int main(int argc, char *argv[]) {
   if (argc != 3) {

@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 #include "StdExtension.h"
-#include "fmt/printf.h"
+#include <fmt/printf.h>
 
 namespace peanut {
 
