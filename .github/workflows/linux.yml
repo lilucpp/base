@@ -2,7 +2,10 @@ name: CMake
 
 on:
   push:
-    tags: ["v*"] # 当你推送以 v 开头的标签（如 v1.0.0）时触发发布
+    branches: [ "master" ]
+    tags: ["v*"]
+  pull_request:
+    branches: [ "master" ]
 
 env:
   BUILD_TYPE: Release
@@ -20,7 +23,7 @@ jobs:
         submodules: recursive
 
     - name: Install deps
-      run: sudo apt-get update && sudo apt-get install -y libgtest-dev zlib1g-dev libboost-all-dev
+      run: sudo apt-get update && sudo apt-get install -y libgtest-dev zlib1g-dev libboost-all-dev libfmt-dev
 
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
@@ -32,7 +35,7 @@ jobs:
       run: |
         tVERSION=${{ github.ref_name }}
         echo "Archiving version $VERSION"
-        tar -czvf "my_program-${VERSION}-linux-x64.tar.gz" -C ${{github.workspace}}/build PeanutBase
+        tar -czvf "peanutbase-${VERSION}-linux-x64.tar.gz" -C ${{github.workspace}}/build PeanutBase
 
     - name: Release
       uses: softprops/action-gh-release@v1
