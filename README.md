@@ -50,15 +50,7 @@ for val in skipdir:
    依赖安装
    
    ```shell
-   sudo apt install libgtest-dev
-   cd /usr/src/gtest
-   sudo mkdir build
-   cd build
-   sudo cmake ..
-   sudo make 
-	sudo make install
-	
-   sudo apt install gtest zlib1g-dev libboost-dev
+   sudo apt install libgtest-dev zlib1g-dev libboost-all-dev
    ```
    
    编译
