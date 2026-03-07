@@ -1,3 +1,5 @@
+[![CMake](https://github.com/lilucpp/base/actions/workflows/cmake.yml/badge.svg)](https://github.com/lilucpp/base/actions/workflows/cmake.yml)
+
 # base library
 
 ## 说明

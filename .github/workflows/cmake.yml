@@ -2,9 +2,7 @@ name: CMake
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    tags: ["v*"] # 当你推送以 v 开头的标签（如 v1.0.0）时触发发布
 
 env:
   BUILD_TYPE: Release
@@ -12,21 +10,34 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 授予该任务写入 Release 的权限
+    permissions:
+      contents: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
       with:
-        submodules: recursive # 自动递归处理子模块
+        submodules: recursive
 
     - name: Install deps
-      # 习惯性加上 -y 以防安装过程中弹出交互确认导致卡死
       run: sudo apt-get update && sudo apt-get install -y libgtest-dev zlib1g-dev libboost-all-dev
 
     - name: Configure CMake
-      # -B 会自动创建目录，不需要手动 mkdir
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      # 直接指定 build 目录进行构建，无需 cd 切换路径
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j $(nproc)
+
+    - name: Archive Production
+      run: |
+        tVERSION=${{ github.ref_name }}
+        echo "Archiving version $VERSION"
+        tar -czvf "my_program-${VERSION}-linux-x64.tar.gz" -C ${{github.workspace}}/build PeanutBase
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: "*.tar.gz"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
