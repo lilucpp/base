@@ -471,3 +471,5 @@ ui_*.h
 Makefile.Debug
 Makefile.Release
 
+build*
+.devcontainer

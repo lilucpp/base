@@ -31,6 +31,9 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j $(nproc)
 
+    - name: Install
+      run: cmake --install ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
     - name: Archive Production
       run: |
         tVERSION=${{ github.ref_name }}
