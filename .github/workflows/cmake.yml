@@ -7,29 +7,26 @@ on:
     branches: [ "master" ]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Release
 
 jobs:
   build:
-    # The CMake configure and build commands are platform agnostic and should work equally well on Windows or Mac.
-    # You can convert this to a matrix build if you need cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
-        submodules: recursive # 解决子模块问题
-    
+        submodules: recursive # 自动递归处理子模块
+
     - name: Install deps
-      run: sudo apt-get install libgtest-dev zlib1g-dev libboost-all-dev
+      # 习惯性加上 -y 以防安装过程中弹出交互确认导致卡死
+      run: sudo apt-get update && sudo apt-get install -y libgtest-dev zlib1g-dev libboost-all-dev
 
     - name: Configure CMake
-      # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-      # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
+      # -B 会自动创建目录，不需要手动 mkdir
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      # Build your program with the given configuration
-      run: mkdir build && cd build && cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      # 直接指定 build 目录进行构建，无需 cd 切换路径
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
