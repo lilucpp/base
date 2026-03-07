@@ -18,7 +18,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@master
+      with:
+        submodules: recursive # 解决子模块问题
     
     - name: Install deps
       run: sudo apt-get install libgtest-dev zlib1g-dev libboost-all-dev
